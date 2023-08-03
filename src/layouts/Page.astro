@@ -1,0 +1,23 @@
+---
+import "@/styles/globals.css";
+
+type Props = {
+  title: string;
+};
+---
+
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="description" content="Astro description" />
+    <meta name="viewport" content="width=device-width" />
+    <link rel="icon" type="image/svg+xml" href="/favicon.svg" />
+    {/* TODO: Change this favicon */}
+    <meta name="generator" content={Astro.generator} />
+    <title>{Astro.props.title}</title>
+  </head>
+  <body class="bg-orange-200">
+    <slot />
+  </body>
+</html>
