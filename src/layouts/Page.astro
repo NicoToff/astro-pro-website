@@ -1,18 +1,14 @@
 ---
 import "@/styles/globals.css";
-import { Button } from "@/shadcn/ui/button";
-import { Moon, Sun } from "lucide-react";
+import ToggleModeButton from "@/components/toggle-mode-button.astro";
 
 type Props = {
   title: string;
 };
-// Find darkMode in localStorage from previous session
-const darkMode = localStorage;
-console.log("🚀 ~ file: Page.astro:11 ~ darkMode:", darkMode);
 ---
 
 <!DOCTYPE html>
-<html lang="en" class={darkMode ? "dark" : ""}>
+<html lang="en">
   <head>
     <meta charset="UTF-8" />
     <meta name="description" content="Astro description" />
@@ -34,20 +30,8 @@ console.log("🚀 ~ file: Page.astro:11 ~ darkMode:", darkMode);
   </head>
   <body class="bg-orange-200 dark:bg-orange-800">
     <nav>
-      <Button data-switch-theme>Light</Button>
+      <ToggleModeButton />
     </nav>
     <slot />
   </body>
-  <script>
-    document.querySelector("[data-switch-theme]").addEventListener("click", () => {
-      const html = document.querySelector("html");
-      html.classList.toggle("dark");
-      if (html.classList.contains("dark")) {
-        localStorage.darkMode = "true";
-      } else {
-        localStorage.darkMode = "false";
-      }
-      document.querySelector("[data-switch-theme]").textContent = html.classList.contains("dark") ? "Dark" : "Light";
-    });
-  </script>
 </html>
