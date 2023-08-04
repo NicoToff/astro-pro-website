@@ -1,6 +1,8 @@
 ---
 import { Button } from "@/shadcn/ui/button";
+import { dataAttributes } from "@/lib/constants";
 ---
 
-<Button data-switch-theme>Light</Button>
-<script src="@/components/toggle-mode-button.ts"></script>
+<Button {...dataAttributes.colorSwitchButton.props} />
+
+<script src="./toggle-mode-button.ts"></script>
