@@ -4,7 +4,7 @@ import { dataAttributes } from "@/lib/constants";
 import { SunIcon, MoonIcon } from "lucide-react";
 ---
 
-<Button {...dataAttributes.colorSwitchButton.props}>
+<Button variant={"secondary"} {...dataAttributes.colorSwitchButton.props}>
   <SunIcon {...dataAttributes.sunIcon.props} />
   <MoonIcon className="hidden" {...dataAttributes.moonIcon.props} />
 </Button>
