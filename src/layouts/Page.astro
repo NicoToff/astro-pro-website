@@ -1,7 +1,7 @@
 ---
 import "@/styles/globals.css";
 import ToggleModeButton from "@/components/toggle-mode-button.astro";
-
+import { Nav } from "@/components/nav";
 type Props = {
   title: string;
 };
@@ -29,11 +29,9 @@ type Props = {
     <title>{Astro.props.title}</title>
   </head>
   <body class="bg-orange-200 dark:bg-orange-800">
-    <nav>
-      <a href="/">Home</a>
-      <a href="/about">About</a>
+    <Nav client:load>
       <ToggleModeButton />
-    </nav>
+    </Nav>
     <slot />
   </body>
 </html>
