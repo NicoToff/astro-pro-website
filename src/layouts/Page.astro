@@ -23,13 +23,13 @@ import { Nav } from "@/components/nav";
     <meta property="og:image" content="https://i.postimg.cc/b8LnH8zj/nt.png" />
     {/* TODO: <meta property="og:url" content="" /> */}
     <meta name="generator" content={Astro.generator} />
-    <title>{Astro.props.frontmatter.title}</title>
+    <title>{Astro.props?.frontmatter?.title ?? Astro.props.title}</title>
   </head>
   <body>
     <Nav>
       <ToggleModeButton />
     </Nav>
-    <main class="container mx-auto">
+    <main class="container mx-auto mt-4 prose prose-zinc dark:prose-invert">
       <slot />
     </main>
   </body>
