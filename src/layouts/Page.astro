@@ -2,6 +2,7 @@
 import "@/styles/globals.css";
 import ToggleModeButton from "@/components/toggle-mode-button.astro";
 import { Nav } from "@/components/nav";
+import { Footer } from "@/components/footer";
 ---
 
 <!DOCTYPE html>
@@ -25,13 +26,16 @@ import { Nav } from "@/components/nav";
     <meta name="generator" content={Astro.generator} />
     <title>{Astro.props?.frontmatter?.title ?? Astro.props.title}</title>
   </head>
-  <body>
+  <body class="mb-4">
     <Nav>
       <ToggleModeButton />
     </Nav>
-    <main class="container mx-auto mt-4 prose prose-zinc dark:prose-invert">
+
+    <main class="container mx-auto mt-4 prose prose-img:mx-auto dark:prose-invert">
       <slot />
     </main>
+
+    <Footer />
   </body>
 </html>
 
