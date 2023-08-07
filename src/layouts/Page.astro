@@ -1,9 +1,7 @@
 ---
+import "@/styles/globals.css";
 import ToggleModeButton from "@/components/toggle-mode-button.astro";
 import { Nav } from "@/components/nav";
-type Props = {
-  title: string;
-};
 ---
 
 <!DOCTYPE html>
@@ -25,13 +23,15 @@ type Props = {
     <meta property="og:image" content="https://i.postimg.cc/b8LnH8zj/nt.png" />
     {/* TODO: <meta property="og:url" content="" /> */}
     <meta name="generator" content={Astro.generator} />
-    <title>{Astro.props.title}</title>
+    <title>{Astro.props.frontmatter.title}</title>
   </head>
   <body>
     <Nav>
       <ToggleModeButton />
     </Nav>
-    <slot />
+    <main class="container mx-auto">
+      <slot />
+    </main>
   </body>
 </html>
 
