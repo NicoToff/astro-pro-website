@@ -2,24 +2,24 @@ import { dataAttributes } from "@/lib/constants";
 
 const { selector } = dataAttributes.colorSwitchButton;
 
-export function getColorTheme() {
-  const theme = localStorage.getItem("color-theme");
-  return theme === "dark" ? "dark" : "light";
-}
-
-function setSwitchButton(theme: "light" | "dark") {
+function setSwitchButtonText(theme: "light" | "dark") {
   const toggleModeButton = document.querySelector(selector);
   if (!toggleModeButton) throw new Error(`No ${selector} attribute found`);
-  toggleModeButton.textContent = theme === "dark" ? "Dark" : "Light";
+  toggleModeButton.innerHTML = theme === "dark" ? "Dark" : "Light";
 }
 
-export function setColorTheme(theme: "light" | "dark") {
+export function setColorThemeOnPageLoad() {
   const html = document.documentElement;
   if (!html) throw new Error("No <html> element found");
-  html.classList.remove("dark", "light");
-  html.classList.add(theme);
-  setSwitchButton(theme);
-  theme === "dark" ? localStorage.setItem("color-theme", "dark") : localStorage.removeItem("color-theme");
+  const theme = localStorage.getItem("color-theme");
+  const isDark = theme === "dark";
+  if (isDark) {
+    html.classList.toggle("dark");
+    localStorage.setItem("color-theme", "dark");
+  } else {
+    localStorage.removeItem("color-theme");
+  }
+  setSwitchButtonText(isDark ? "dark" : "light");
 }
 
 export function switchColorTheme() {
@@ -28,5 +28,5 @@ export function switchColorTheme() {
   html.classList.toggle("dark");
   const theme = html.classList.contains("dark") ? "dark" : "light";
   theme === "dark" ? localStorage.setItem("color-theme", "dark") : localStorage.removeItem("color-theme");
-  setSwitchButton(theme);
+  setSwitchButtonText(theme);
 }
