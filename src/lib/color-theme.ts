@@ -1,11 +1,20 @@
 import { dataAttributes } from "@/lib/constants";
 
-const { selector } = dataAttributes.colorSwitchButton;
-
 function setSwitchButtonText(theme: "light" | "dark") {
-  const toggleModeButton = document.querySelector(selector);
-  if (!toggleModeButton) throw new Error(`No ${selector} attribute found`);
-  toggleModeButton.innerHTML = theme === "dark" ? "Dark" : "Light";
+  const { colorSwitchButton, moonIcon, sunIcon } = dataAttributes;
+  const toggleModeButton = document.querySelector(colorSwitchButton.selector);
+  const moonElement = document.querySelector(moonIcon.selector);
+  const sunElement = document.querySelector(sunIcon.selector);
+  if (!toggleModeButton || !moonElement || !sunElement)
+    throw new Error(`Either ${colorSwitchButton.selector}, ${moonIcon.selector}, or ${sunIcon.selector} not found`);
+  // toggleModeButton.innerHTML = theme === "dark" ? "Dark" : "Light";
+  if (theme === "dark") {
+    moonElement.classList.remove("hidden");
+    sunElement.classList.add("hidden");
+  } else {
+    moonElement.classList.add("hidden");
+    sunElement.classList.remove("hidden");
+  }
 }
 
 export function setColorThemeOnPageLoad() {

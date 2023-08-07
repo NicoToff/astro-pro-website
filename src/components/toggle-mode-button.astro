@@ -1,8 +1,12 @@
 ---
 import { Button } from "@/shadcn/ui/button";
 import { dataAttributes } from "@/lib/constants";
+import { SunIcon, MoonIcon } from "lucide-react";
 ---
 
-<Button {...dataAttributes.colorSwitchButton.props} />
+<Button {...dataAttributes.colorSwitchButton.props}>
+  <SunIcon {...dataAttributes.sunIcon.props} />
+  <MoonIcon className="hidden" {...dataAttributes.moonIcon.props} />
+</Button>
 
 <script src="./toggle-mode-button.ts"></script>
