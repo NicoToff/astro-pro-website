@@ -1,0 +1,37 @@
+---
+import Page from "@/layouts/Page.astro";
+import { getCollection } from "astro:content";
+import { SideBySide } from "@/components/side-by-side";
+import type { Render } from "astro:content";
+import type { SkillType } from "@/content/config";
+
+type RenderedEntryComponent = Awaited<Render[".md"]>;
+type Content = {
+  Content: RenderedEntryComponent["Content"];
+  frontmatter: SkillType;
+};
+
+const allSkills = await getCollection("skills");
+const content: Content[] = [];
+for (const skill of allSkills) {
+  const { Content, remarkPluginFrontmatter: frontmatter } = await skill.render();
+  content.push({ Content, frontmatter: frontmatter as SkillType });
+}
+---
+
+<Page title="NicoToff | Skills">
+  {
+    content.map(({ Content, frontmatter }) => (
+      <SideBySide className="mt-8 gap-4 first:mt-0">
+        <div class="basis-3/4">
+          <Content />
+        </div>
+        {frontmatter.image ? (
+          <div class="hidden md:basis-1/4 md:p-4 md:block">
+            <img src={frontmatter.image} alt="" loading="lazy" />
+          </div>
+        ) : null}
+      </SideBySide>
+    ))
+  }
+</Page>

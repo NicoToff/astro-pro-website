@@ -9,6 +9,7 @@ import {
 export function Nav({ children }: { children?: React.ReactNode }) {
   const navigationLinks = [
     { href: "/", text: "Home" },
+    { href: "/skills", text: "Skills" },
     { href: "/contact", text: "Contact" },
   ];
   return (
