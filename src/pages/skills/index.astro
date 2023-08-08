@@ -1,7 +1,7 @@
 ---
 import Page from "@/layouts/Page.astro";
 import { getCollection } from "astro:content";
-import { SideBySide } from "@/components/side-by-side";
+import { SideBySidePageContent } from "@/components/side-by-side-page-content";
 import type { Render } from "astro:content";
 import type { SkillType } from "@/content/config";
 
@@ -22,16 +22,9 @@ for (const skill of allSkills) {
 <Page title="NicoToff | Skills">
   {
     content.map(({ Content, frontmatter }) => (
-      <SideBySide className="mt-8 gap-4 first:mt-0">
-        <div class={frontmatter.image ? "basis-3/4" : undefined}>
-          <Content />
-        </div>
-        {frontmatter.image ? (
-          <div class="hidden md:basis-1/4 md:p-4 md:block">
-            <img src={frontmatter.image} alt="" loading="lazy" />
-          </div>
-        ) : null}
-      </SideBySide>
+      <SideBySidePageContent className="mt-8 gap-4 first:mt-0" image={frontmatter.image}>
+        <Content />
+      </SideBySidePageContent>
     ))
   }
 </Page>
