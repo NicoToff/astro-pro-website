@@ -7,8 +7,8 @@ export function Footer() {
   ] satisfies { href: string; Icon: LucideIcon }[];
 
   return (
-    <footer className="mt-8 m-4 border-t">
-      <div className="w-full mx-auto max-w-screen-lg items-center py-3 flex justify-between">
+    <footer className="m-4 mt-8 border-t">
+      <div className="mx-auto flex w-full max-w-screen-lg items-center justify-between py-3">
         <div>
           <a href="/" className="hover:underline">
             © <span data-current-year>2023</span>
@@ -17,7 +17,7 @@ export function Footer() {
         </div>
         <ul className="flex gap-2">
           {listItems.map(({ href, Icon }) => (
-            <li className="p-2 hover:bg-secondary rounded-md" key={href}>
+            <li className="rounded-md p-2 hover:bg-secondary" key={href}>
               <a href={href} target="_blank" rel="noopener noreferrer">
                 <Icon size={48} />
               </a>
