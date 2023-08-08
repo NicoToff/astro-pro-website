@@ -8,7 +8,7 @@ export function Footer() {
 
   return (
     <footer className="mt-8 m-4 border-t">
-      <div className="w-full mx-auto max-w-screen-lg items-center p-4 flex justify-between">
+      <div className="w-full mx-auto max-w-screen-lg items-center py-3 flex justify-between">
         <div>
           <a href="/" className="hover:underline">
             © <span data-current-year>2023</span>
