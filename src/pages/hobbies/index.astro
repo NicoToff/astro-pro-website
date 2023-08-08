@@ -3,23 +3,23 @@ import Page from "@/layouts/Page.astro";
 import { getCollection } from "astro:content";
 import { SideBySide } from "@/components/side-by-side";
 import type { Render } from "astro:content";
-import type { SkillType } from "@/content/config";
+import type { HobbyType } from "@/content/config";
 
 type RenderedEntryComponent = Awaited<Render[".md"]>;
 type Content = {
   Content: RenderedEntryComponent["Content"];
-  frontmatter: SkillType;
+  frontmatter: HobbyType;
 };
 
-const allSkills = await getCollection("skills");
+const allHobbies = await getCollection("hobbies");
 const content: Content[] = [];
-for (const skill of allSkills) {
-  const { Content, remarkPluginFrontmatter: frontmatter } = await skill.render();
-  content.push({ Content, frontmatter: frontmatter as SkillType });
+for (const hobby of allHobbies) {
+  const { Content, remarkPluginFrontmatter: frontmatter } = await hobby.render();
+  content.push({ Content, frontmatter: frontmatter as HobbyType });
 }
 ---
 
-<Page title="NicoToff | Skills">
+<Page title="NicoToff | Hobbies">
   {
     content.map(({ Content, frontmatter }) => (
       <SideBySide className="mt-8 gap-4 first:mt-0">

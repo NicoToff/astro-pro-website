@@ -12,6 +12,19 @@ const skillCollection = defineCollection({
   schema: skillSchema,
 });
 
+const hobbySchema = z.object({
+  title: z.string().optional(),
+  image: z.string().optional(),
+});
+
+export type HobbyType = z.infer<typeof hobbySchema>;
+
+const hobbyCollection = defineCollection({
+  type: "content",
+  schema: hobbySchema,
+});
+
 export const collections = {
   skills: skillCollection,
+  hobbies: hobbyCollection,
 };

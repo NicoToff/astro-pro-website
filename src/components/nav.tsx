@@ -10,6 +10,7 @@ export function Nav({ children }: { children?: React.ReactNode }) {
   const navigationLinks = [
     { href: "/", text: "Home" },
     { href: "/skills", text: "Skills" },
+    { href: "/hobbies", text: "Hobbies" },
     { href: "/contact", text: "Contact" },
   ];
   return (
@@ -21,7 +22,7 @@ export function Nav({ children }: { children?: React.ReactNode }) {
           </NavigationMenuLink>
         </NavigationMenuItem>
         {navigationLinks.map((elem, i) => (
-          <NavItem key={i} {...elem} />
+          <NavItem key={i} {...elem} className={elem.href === "/" ? "hidden md:block" : undefined} />
         ))}
         {children ? <NavigationMenuItem>{children}</NavigationMenuItem> : null}
       </NavigationMenuList>
@@ -29,9 +30,9 @@ export function Nav({ children }: { children?: React.ReactNode }) {
   );
 }
 
-function NavItem({ href, text }: { href: string; text: string }) {
+function NavItem({ href, text, className }: { href: string; text: string; className?: string | undefined }) {
   return (
-    <NavigationMenuItem>
+    <NavigationMenuItem className={className}>
       <NavigationMenuLink href={href} className={navigationMenuTriggerStyle()}>
         {text}
       </NavigationMenuLink>
