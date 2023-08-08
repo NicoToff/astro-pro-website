@@ -26,12 +26,12 @@ import { Footer } from "@/components/footer";
     <meta name="generator" content={Astro.generator} />
     <title>{Astro.props?.frontmatter?.title ?? Astro.props.title}</title>
   </head>
-  <body class="mb-4">
+  <body class="mb-4 container mx-auto p-8">
     <Nav>
       <ToggleModeButton />
     </Nav>
 
-    <main class="container mx-auto mt-4 prose prose-img:mx-auto dark:prose-invert">
+    <main class="max-w-screen-lg mx-auto mt-4 p-4 prose prose-img:mx-auto dark:prose-invert">
       <slot />
     </main>
 
