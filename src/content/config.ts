@@ -1,28 +1,33 @@
 import { z, defineCollection } from "astro:content";
 
-const skillSchema = z.object({
-  image: z.string().optional(),
-});
+const collectionDefinitions = {
+  skills: {
+    type: "content",
+    schema: z.object({
+      image: z.string().optional(),
+    }),
+  } as const,
 
-export type SkillType = z.infer<typeof skillSchema>;
-
-const skillCollection = defineCollection({
-  type: "content",
-  schema: skillSchema,
-});
-
-const hobbySchema = z.object({
-  image: z.string().optional(),
-});
-
-export type HobbyType = z.infer<typeof hobbySchema>;
-
-const hobbyCollection = defineCollection({
-  type: "content",
-  schema: hobbySchema,
-});
-
-export const collections = {
-  skills: skillCollection,
-  hobbies: hobbyCollection,
+  hobbies: {
+    type: "content",
+    schema: z.object({
+      image: z.string().optional(),
+      facebook: z.string().optional(),
+      instagram: z.string().optional(),
+    }),
+  } as const,
 };
+
+const allCollections = Object.entries(collectionDefinitions).map(([name, args]) => {
+  return { name, collection: defineCollection(args) };
+});
+
+export const collections = Object.fromEntries(allCollections.map(({ name, collection }) => [name, collection]));
+
+export type CollectionName = keyof typeof collectionDefinitions;
+
+type FrontmatterType = {
+  [key in keyof typeof collectionDefinitions]: z.infer<(typeof collectionDefinitions)[key]["schema"]>;
+};
+
+export type Frontmatter<F extends CollectionName> = FrontmatterType[F];

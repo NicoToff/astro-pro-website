@@ -1,27 +1,14 @@
 ---
 import Page from "@/layouts/Page.astro";
-import { getCollection } from "astro:content";
 import { SideBySidePageContent } from "@/components/side-by-side-page-content";
-import type { Render } from "astro:content";
-import type { HobbyType } from "@/content/config";
+import { getParsedCollection } from "@/lib/helpers";
 
-type RenderedEntryComponent = Awaited<Render[".md"]>;
-type Content = {
-  Content: RenderedEntryComponent["Content"];
-  frontmatter: HobbyType;
-};
-
-const allHobbies = await getCollection("hobbies");
-const content: Content[] = [];
-for (const hobby of allHobbies) {
-  const { Content, remarkPluginFrontmatter: frontmatter } = await hobby.render();
-  content.push({ Content, frontmatter: frontmatter as HobbyType });
-}
+const parsedEntries = await getParsedCollection("hobbies");
 ---
 
 <Page title="NicoToff | Hobbies">
   {
-    content.map(({ Content, frontmatter }) => (
+    parsedEntries.map(({ Content, frontmatter }) => (
       <SideBySidePageContent className="mt-8 gap-4 first:mt-0" image={frontmatter.image}>
         <Content />
       </SideBySidePageContent>
