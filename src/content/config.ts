@@ -1,7 +1,6 @@
 import { z, defineCollection } from "astro:content";
 
 const skillSchema = z.object({
-  title: z.string(),
   image: z.string().optional(),
 });
 
@@ -13,7 +12,6 @@ const skillCollection = defineCollection({
 });
 
 const hobbySchema = z.object({
-  title: z.string().optional(),
   image: z.string().optional(),
 });
 

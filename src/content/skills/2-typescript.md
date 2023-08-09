@@ -1,16 +1,7 @@
 ---
-title: TypeScript
 image: https://upload.wikimedia.org/wikipedia/commons/4/4c/Typescript_logo_2020.svg
-
 ---
+
 # TypeScript
 
-TypeScript is a strongly typed programming language that builds on JavaScript, giving you better tooling at any scale.
-
-## JavaScript and More
-
-TypeScript adds additional syntax to JavaScript to support a tighter integration with your editor. Catch errors early in your editor.
-
-### A Result You Can Trust
-
-TypeScript code converts to JavaScript, which runs anywhere JavaScript runs: In a browser, on Node.js or Deno and in your apps.
+When you work with web technologies, there is no avoiding JavaScript. Such a sweet and easy language, everybody loves it! Then, you build a medium scale project and you cry tears of blood because it is a wonderful mess. It is no surprise that TypeScript has become an industry standard for projects of any size these days. As developers, we are all masochists for sure, but no one wants to be a martyr.
