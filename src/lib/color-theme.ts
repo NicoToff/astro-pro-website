@@ -7,13 +7,16 @@ function setSwitchButtonText(theme: "light" | "dark") {
   const sunElement = document.querySelector(sunIcon.selector);
   if (!toggleModeButton || !moonElement || !sunElement)
     throw new Error(`Either ${colorSwitchButton.selector}, ${moonIcon.selector}, or ${sunIcon.selector} not found`);
-  // toggleModeButton.innerHTML = theme === "dark" ? "Dark" : "Light";
   if (theme === "dark") {
     moonElement.classList.remove("hidden");
+    moonElement.removeAttribute("aria-hidden");
     sunElement.classList.add("hidden");
+    sunElement.setAttribute("aria-hidden", "true");
   } else {
     moonElement.classList.add("hidden");
+    moonElement.setAttribute("aria-hidden", "true");
     sunElement.classList.remove("hidden");
+    sunElement.removeAttribute("aria-hidden");
   }
 }
 

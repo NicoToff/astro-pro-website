@@ -4,9 +4,9 @@ import { dataAttributes } from "@/lib/constants";
 import { SunIcon, MoonIcon } from "lucide-react";
 ---
 
-<Button variant={"secondary"} {...dataAttributes.colorSwitchButton.props}>
-  <SunIcon {...dataAttributes.sunIcon.props} />
-  <MoonIcon className="hidden" {...dataAttributes.moonIcon.props} />
+<Button variant={"secondary"} {...dataAttributes.colorSwitchButton.props} role="switch">
+  <SunIcon {...dataAttributes.sunIcon.props} aria-description="" />
+  <MoonIcon className="hidden" {...dataAttributes.moonIcon.props} aria-hidden />
 </Button>
 
 <script src="./toggle-mode-button.ts"></script>

@@ -22,7 +22,7 @@ export function Nav({ children }: { children?: React.ReactNode }) {
           </NavigationMenuLink>
         </NavigationMenuItem>
         {navigationLinks.map((elem, i) => (
-          <NavItem key={i} {...elem} className={elem.href === "/" ? "hidden md:block" : undefined} />
+          <NavItem key={i} {...elem} hideIf={elem.href === "/"} />
         ))}
         {children ? <NavigationMenuItem>{children}</NavigationMenuItem> : null}
       </NavigationMenuList>
@@ -30,9 +30,9 @@ export function Nav({ children }: { children?: React.ReactNode }) {
   );
 }
 
-function NavItem({ href, text, className }: { href: string; text: string; className?: string | undefined }) {
+function NavItem({ href, text, hideIf }: { href: string; text: string; hideIf?: boolean }) {
   return (
-    <NavigationMenuItem className={className}>
+    <NavigationMenuItem className={hideIf ? "hidden md:block" : undefined} aria-hidden={hideIf}>
       <NavigationMenuLink href={href} className={navigationMenuTriggerStyle()}>
         {text}
       </NavigationMenuLink>
