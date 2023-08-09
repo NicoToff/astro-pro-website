@@ -9,14 +9,14 @@ function setSwitchButtonText(theme: "light" | "dark") {
     throw new Error(`Either ${colorSwitchButton.selector}, ${moonIcon.selector}, or ${sunIcon.selector} not found`);
   if (theme === "dark") {
     moonElement.classList.remove("hidden");
-    moonElement.removeAttribute("aria-hidden");
     sunElement.classList.add("hidden");
-    sunElement.setAttribute("aria-hidden", "true");
+    toggleModeButton.setAttribute("aria-label", "Switch to light mode");
+    toggleModeButton.setAttribute("aria-checked", "true");
   } else {
     moonElement.classList.add("hidden");
-    moonElement.setAttribute("aria-hidden", "true");
     sunElement.classList.remove("hidden");
-    sunElement.removeAttribute("aria-hidden");
+    toggleModeButton.setAttribute("aria-label", "Switch to dark mode");
+    toggleModeButton.setAttribute("aria-checked", "false");
   }
 }
 
