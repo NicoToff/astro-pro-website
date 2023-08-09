@@ -18,7 +18,11 @@ export function Nav({ children }: { children?: React.ReactNode }) {
       <NavigationMenuList>
         <NavigationMenuItem className="px-2">
           <NavigationMenuLink href="/">
-            <img src="/logos/nt256.png" className="h-9 w-9 dark:border dark:border-primary" alt="logo home button" />
+            <img
+              src="images/logos/nt256.png"
+              className="h-9 w-9 dark:border dark:border-primary"
+              alt="logo home button"
+            />
           </NavigationMenuLink>
         </NavigationMenuItem>
         {navigationLinks.map((elem, i) => (

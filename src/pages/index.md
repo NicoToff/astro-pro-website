@@ -11,5 +11,5 @@ What started as a curiosity about IT quickly became a passion. The three-year ba
 
 In both private life and work, I love acquiring new skills and always stay up to date with emerging trends. I am excited to leverage my expertise to help people achieve their goals. I take pride in being part of a community that strives to make a positive impact on the world by continuously pushing the boundaries of what's possible.
 
-<img src="portrait.jpg" loading="lazy" alt="Picture of Nicolas Toffolo" />
+<img src="images/portrait.jpg" loading="lazy" alt="Picture of Nicolas Toffolo" />
 
