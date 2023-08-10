@@ -21,6 +21,8 @@ export const collectionDefinitions = {
       title: z.string(),
       href: z.string(),
       description: z.string().max(160),
+      shortDescription: z.string().max(50),
+      technologies: z.array(z.string()),
     }),
   },
 } as const;

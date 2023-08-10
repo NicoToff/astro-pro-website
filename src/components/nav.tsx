@@ -11,12 +11,22 @@ import { forwardRef } from "react";
 import { cn } from "@/lib/utils";
 import { getParsedCollection } from "@/lib/helpers";
 
-const res = await getParsedCollection("projects");
-const components = res.map(({ frontmatter }) => ({
-  title: frontmatter.title,
-  href: `/projects/${frontmatter.href}`,
-  description: frontmatter.description,
-}));
+const collectionToGet = "projects";
+
+const dropdownItems = (await getParsedCollection(collectionToGet))
+  .map(({ frontmatter }) => ({
+    title: frontmatter.title,
+    href: `/${collectionToGet}/${frontmatter.href}`,
+    description: frontmatter.shortDescription,
+  }))
+  .reverse()
+  .splice(0, 11); // Only show the 11 most recent projects
+
+dropdownItems.push({
+  title: "All Projects",
+  href: `/${collectionToGet}`,
+  description: "See all projects",
+});
 
 const navigationLinks = [
   { href: "/skills", text: "Skills" },
@@ -33,7 +43,7 @@ export function Nav({ children }: { children?: React.ReactNode }) {
             <img src="/images/logos/nt256.png" className="h-9 w-9 dark:border dark:border-primary" alt="" />
           </NavigationMenuLink>
         </NavigationMenuItem>
-        <Dropdown dropdownItems={components}>Projects</Dropdown>
+        <Dropdown dropdownItems={dropdownItems}>Projects</Dropdown>
         {navigationLinks.map((elem, i) => (
           <NavItem key={i} {...elem} />
         ))}

@@ -1,5 +1,6 @@
 ---
 title: NicoToff | Contact
+description: How to get in touch with Nicolas Toffolo
 layout: "@/layouts/Page.astro"
 ---
 

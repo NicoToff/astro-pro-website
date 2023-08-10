@@ -3,28 +3,41 @@ import "@/styles/globals.css";
 import ToggleModeButton from "@/components/toggle-mode-button.astro";
 import { Nav } from "@/components/nav";
 import { Footer } from "@/components/footer";
+
+type Props = {
+  title: string;
+  description?: string;
+};
+type MarkdownProps = {
+  frontmatter: Props;
+};
+const title = Astro.props.title ?? (Astro.props as unknown as MarkdownProps).frontmatter?.title ?? "NicoToff";
+const description =
+  Astro.props.description ??
+  (Astro.props as unknown as MarkdownProps).frontmatter?.description ??
+  "Nicolas Toffolo, software and web developer";
+const ogDescription = description ?? "Nicolas Toffolo's portfolio website";
 ---
 
 <!DOCTYPE html>
 <html lang="en">
   <head>
     <meta charset="UTF-8" />
-    <meta name="description" content="Astro description" />
-    <meta name="viewport" content="width=device-width" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <link rel="icon" type="image/png" href="/favicon.png" />
-    <meta name="description" content="Nicolas Toffolo, software and web developer" />
+    <meta name="description" content={description} />
     <meta
       name="keywords"
       content="Toffolo, frontend, backend, TypeScript, JavaScript, JS, Node.js, C++, software engineer, developer, ESP32"
     />
     <meta name="author" content="Nicolas Toffolo" />
-    <meta property="og:title" content="NicoToff" />
+    <meta property="og:title" content={title} />
     <meta property="og:type" content="website" />
-    <meta property="og:description" content="Nicolas Toffolo's portfolio website" />
+    <meta property="og:description" content={ogDescription} />
     <meta property="og:image" content="https://i.postimg.cc/b8LnH8zj/nt.png" />
     {/* TODO: <meta property="og:url" content="" /> */}
     <meta name="generator" content={Astro.generator} />
-    <title>{Astro.props?.frontmatter?.title ?? Astro.props.title}</title>
+    <title>{title}</title>
   </head>
   <body class="mb-4 container mx-auto">
     <Nav client:load>
