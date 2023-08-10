@@ -12,8 +12,6 @@ export const collectionDefinitions = {
     type: "content",
     schema: z.object({
       image: z.string().optional(),
-      facebook: z.string().optional(),
-      instagram: z.string().optional(),
     }),
   } as const,
 };
