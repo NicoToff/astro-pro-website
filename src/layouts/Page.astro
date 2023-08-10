@@ -3,6 +3,24 @@ import "@/styles/globals.css";
 import ToggleModeButton from "@/components/toggle-mode-button.astro";
 import { Nav } from "@/components/nav";
 import { Footer } from "@/components/footer";
+import { getParsedCollection } from "@/lib/helpers";
+
+const collectionToGet = "projects";
+
+const dropdownItems = (await getParsedCollection(collectionToGet))
+  .map(({ frontmatter }) => ({
+    title: frontmatter.title,
+    href: `/${collectionToGet}/${frontmatter.href}`,
+    description: frontmatter.shortDescription,
+  }))
+  .reverse()
+  .splice(0, 11); // Only show the 11 most recent projects
+
+dropdownItems.push({
+  title: "All Projects",
+  href: `/${collectionToGet}`,
+  description: "See all projects",
+});
 
 type Props = {
   title: string;
@@ -40,7 +58,7 @@ const ogDescription = description ?? "Nicolas Toffolo's portfolio website";
     <title>{title}</title>
   </head>
   <body class="mb-4 container mx-auto">
-    <Nav client:load>
+    <Nav client:load dropdownItems={dropdownItems}>
       <ToggleModeButton />
     </Nav>
 
