@@ -19,7 +19,7 @@ export function Footer() {
   ] satisfies { href: string; Icon: LucideIcon; aria: { [key: string]: string } }[];
 
   return (
-    <footer className="m-4 mt-8 border-t">
+    <footer className="m-4 mt-8 border-t print:hidden">
       <div className="mx-auto flex w-full max-w-screen-lg items-center justify-between py-3">
         <div aria-hidden="true">
           <a href="/" className="hover:underline">

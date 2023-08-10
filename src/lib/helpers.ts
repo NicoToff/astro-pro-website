@@ -23,8 +23,8 @@ import type { CollectionName, Frontmatter } from "@/types/collections";
 export async function getParsedCollection<C extends CollectionName>(collection: C) {
   const entries = await getCollection<CollectionName>(collection);
   return await Promise.all(
-    entries.map(async (skill) => {
-      const { remarkPluginFrontmatter: frontmatter, Content } = await skill.render();
+    entries.map(async (item) => {
+      const { remarkPluginFrontmatter: frontmatter, Content } = await item.render();
       return {
         frontmatter: frontmatter as Frontmatter<C>,
         Content: Content as Awaited<Render[".md"]>["Content"],

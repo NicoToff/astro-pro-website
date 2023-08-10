@@ -27,7 +27,7 @@ import { Footer } from "@/components/footer";
     <title>{Astro.props?.frontmatter?.title ?? Astro.props.title}</title>
   </head>
   <body class="mb-4 container mx-auto">
-    <Nav>
+    <Nav client:load>
       <ToggleModeButton />
     </Nav>
 

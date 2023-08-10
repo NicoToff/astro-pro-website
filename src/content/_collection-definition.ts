@@ -6,12 +6,21 @@ export const collectionDefinitions = {
     schema: z.object({
       image: z.string().optional(),
     }),
-  } as const,
+  },
 
   hobbies: {
     type: "content",
     schema: z.object({
       image: z.string().optional(),
     }),
-  } as const,
-};
+  },
+
+  projects: {
+    type: "content",
+    schema: z.object({
+      title: z.string(),
+      href: z.string(),
+      description: z.string().max(160),
+    }),
+  },
+} as const;

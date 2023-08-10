@@ -1,0 +1,26 @@
+---
+import Page from "@/layouts/Page.astro";
+import { getParsedCollection } from "@/lib/helpers";
+
+export async function getStaticPaths() {
+  const projects = await getParsedCollection("projects");
+  return projects.map((project) => ({
+    params: {
+      slug: project.frontmatter.href,
+    },
+    props: {
+      project,
+    },
+  }));
+}
+
+type Props = {
+  project: Awaited<ReturnType<typeof getParsedCollection<"projects">>>[0];
+};
+
+const { frontmatter, Content } = Astro.props.project;
+---
+
+<Page title={`NicoToff | Project: ${frontmatter.title}`}>
+  <Content />
+</Page>
