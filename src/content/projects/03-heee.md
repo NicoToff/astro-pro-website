@@ -17,10 +17,8 @@ During the summer 2022, the Quality Department at my school (HELHa) needed a con
 
 ## Tasks
 
-- Learn how Astro components work
-- Learn how to use React component with Astro
-- Create a simple design using Tailwind
-- Enjoy the battle-tested components built by [shadcn](https://ui.shadcn.com/)
-- Organise all the content to be handled in markdown files
-- Use dynamic routing to create a dedicated page for some content
+- Create a viable schema for the data
+- Build a web UI to upload data and display it in charts
+- Deploy the project securely
+
 

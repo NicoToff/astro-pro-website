@@ -4,23 +4,21 @@ href: helha-revision
 shortDescription: A website for my student summaries
 description: My very first project! A fully static website to share my summaries with the other students.
 technologies: [HTML, CSS, NotePad++, FileZilla]
+projectUrl: https://helharevision.000webhostapp.com/
 
 ---
 
-# A Vendure prototype
+# HELHa Révision
 
 ## Context
 
-Mirahi, a web agency in Brussels, needed to assess the viability of Vendure, a NestJS-based e-commerce framework, to deal with food products orders. I was tasked with creating a fullstack proof of concept using modern headless technologies.
+My first pet project in IT was the development of a static website to share summaries with my fellow students. Despite its simplicity, it did the job! I learned a ton about HTML5 and CSS3 over the months I was building this project. For a time, I prefered using CSS libraries like Bootstrap, because they allow for clean design without much effort and knowledge of CSS. Today, I'm a big fan of Tailwind.
+
+HELHa-Révision received updates until March 2021, at which point the amount of work for school made it impossible to continue this project. With my more current knowledge, I realise I could have made a static website, organise my summaries in markdown collections and use a static site generator like Hugo, Gatsby... or now Astro!
+
+This website is ugly, ill-designed, but I am proud of what I achieved. This project taught me a lot about web development, most of all how painful it is to work without modern tools (I was using Notepad++, ffs).
 
 ## Tasks
 
-- Create a Vendure plugin (NestJS module) to use Adyen as a payment provider
-- Wireframe, then build a storefront using Next.js and Tailwind
-- Set up the Vendure GraphQL API to connect the storefront and server
-- Adapt Vendure to deal with food products
-- Handle state from the backend with React Query
-- Improve accessibility on the storefront with Radix UI (shadcn components)
-
-## Link
-The final paper I wrote about this project [can be found here](https://pdfhost.io/v/rpu9bQYoj_Travail_de_fin_dtudes_Nicolas_Toffolo) (French). 
+- Create CSS classes tailored to my needs
+- Integrate my summaries as HTML content

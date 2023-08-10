@@ -23,4 +23,14 @@ const { frontmatter, Content } = Astro.props.project;
 
 <Page title={`NicoToff | Project: ${frontmatter.title}`}>
   <Content />
+  {
+    frontmatter.projectUrl ? (
+      <>
+        <iframe src={frontmatter.projectUrl} class="mt-16 w-[100%] h-[95vmin]" />
+        <div class="text-right pr-4 mt-2">
+          <a href={frontmatter.projectUrl}>Go to {frontmatter.projectUrl}</a>
+        </div>
+      </>
+    ) : null
+  }
 </Page>
