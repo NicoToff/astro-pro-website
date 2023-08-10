@@ -77,7 +77,7 @@ function Dropdown({ children = "Dropdown", dropdownItems }: DropdownProps) {
     <NavigationMenuItem>
       <NavigationMenuTrigger>{children}</NavigationMenuTrigger>
       <NavigationMenuContent>
-        <ul className="grid w-[640px] gap-3 p-4 md:w-[768px] md:grid-cols-2 lg:w-[1024px] xl:w-[1280px] xl:grid-cols-3 2xl:w-[1536px] 2xl:grid-cols-4">
+        <ul className="grid w-[99vw] gap-3 p-4 sm:w-[640px] md:w-[768px] md:grid-cols-2 lg:w-[1024px] xl:w-[1280px] xl:grid-cols-3 2xl:w-[1536px] 2xl:grid-cols-4">
           {dropdownItems.map((it) => (
             <ListItem key={it.title} title={it.title} href={it.href}>
               {it.description}
