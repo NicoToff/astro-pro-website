@@ -6,10 +6,11 @@ import {
 } from "@/shadcn/ui/navigation-menu";
 import { forwardRef } from "react";
 import { cn } from "@/lib/utils";
+import type { ProjectInfo } from "@/types/dropdown";
 
 type DropdownProps = {
   children?: React.ReactNode;
-  dropdownItems: { title: string; href: string; description: string }[];
+  dropdownItems: ProjectInfo;
 };
 
 export function Dropdown({ children = "Dropdown", dropdownItems }: DropdownProps) {

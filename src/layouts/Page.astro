@@ -4,6 +4,7 @@ import ToggleModeButton from "@/components/toggle-mode-button.astro";
 import { Nav } from "@/components/nav";
 import { Footer } from "@/components/footer";
 import { getParsedCollection } from "@/lib/helpers";
+import type { ProjectInfo } from "@/types/dropdown";
 
 const collectionToGet = "projects";
 
@@ -14,7 +15,7 @@ const dropdownItems = (await getParsedCollection(collectionToGet))
     description: frontmatter.shortDescription,
   }))
   .reverse()
-  .splice(0, 11); // Only show the 11 most recent projects
+  .splice(0, 11) satisfies ProjectInfo; // Only show the 11 most recent projects
 
 dropdownItems.push({
   title: "All Projects",

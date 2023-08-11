@@ -7,16 +7,32 @@ import {
 } from "@/shadcn/ui/navigation-menu";
 import { Dropdown } from "./nav-dropdown";
 
+import { Menu, PlusCircle } from "lucide-react";
+
+import { Button } from "@/shadcn/ui/button";
+import {
+  DropdownMenu,
+  DropdownMenuContent,
+  DropdownMenuItem,
+  DropdownMenuPortal,
+  DropdownMenuSeparator,
+  DropdownMenuSub,
+  DropdownMenuSubContent,
+  DropdownMenuSubTrigger,
+  DropdownMenuTrigger,
+} from "@/shadcn/ui/dropdown-menu";
+import type { ProjectInfo } from "@/types/dropdown";
+
 const navigationLinks = [
   { href: "/skills", text: "Skills" },
   { href: "/hobbies", text: "Hobbies" },
   { href: "/contact", text: "Contact" },
-];
+] as const;
 
-export function Nav({ children, dropdownItems }: { children?: React.ReactNode; dropdownItems: any }) {
+export function Nav({ children, dropdownItems }: { children?: React.ReactNode; dropdownItems: ProjectInfo }) {
   return (
     <NavigationMenu className={`mb-2 mt-4 max-w-none border-b pb-2 print:hidden`}>
-      <NavigationMenuList>
+      <NavigationMenuList className="hidden sm:flex">
         <NavigationMenuItem className="px-2" aria-description="Go to home page">
           <NavigationMenuLink href="/">
             <img src="/images/logos/nt256.png" className="h-9 w-9 dark:border dark:border-primary" alt="" />
@@ -26,8 +42,11 @@ export function Nav({ children, dropdownItems }: { children?: React.ReactNode; d
         {navigationLinks.map((elem, i) => (
           <NavItem key={i} {...elem} />
         ))}
-        {children ? <NavigationMenuItem>{children}</NavigationMenuItem> : null}
       </NavigationMenuList>
+      {children}
+      <div className="sm:hidden">
+        <DropdownMenuDemo dropdownItems={dropdownItems} />
+      </div>
     </NavigationMenu>
   );
 }
@@ -45,3 +64,56 @@ function NavItem({ href, text }: NavItemProps) {
   );
 }
 NavItem.displayName = "NavItem";
+
+export function DropdownMenuDemo({ dropdownItems }: { dropdownItems: ProjectInfo }) {
+  return (
+    <DropdownMenu>
+      <DropdownMenuTrigger asChild>
+        <Button variant="outline">
+          <Menu />
+        </Button>
+      </DropdownMenuTrigger>
+      <DropdownMenuContent className="w-56">
+        <a href={"/"}>
+          <DropdownMenuItem>
+            <span>Home</span>
+          </DropdownMenuItem>
+        </a>
+        <DropdownMenuSub>
+          <DropdownMenuSubTrigger>
+            <span>Projects</span>
+          </DropdownMenuSubTrigger>
+          <DropdownMenuPortal>
+            <DropdownMenuSubContent>
+              {dropdownItems.slice(0, dropdownItems.length - 1).map((it) => (
+                <a href={it.href} key={it.title}>
+                  <DropdownMenuItem>
+                    <span>{it.title}</span>
+                  </DropdownMenuItem>
+                </a>
+              ))}
+              <DropdownMenuSeparator />
+              {dropdownItems.slice(dropdownItems.length - 1, dropdownItems.length).map((it) => (
+                <a href={it.href} key={it.title}>
+                  <DropdownMenuItem>
+                    <PlusCircle className="mr-2 h-4 w-4" />
+                    <span>{it.title}</span>
+                  </DropdownMenuItem>
+                </a>
+              ))}
+            </DropdownMenuSubContent>
+          </DropdownMenuPortal>
+        </DropdownMenuSub>
+        {navigationLinks.map((elem) => (
+          <a href={elem.href} key={elem.href}>
+            <DropdownMenuItem>
+              <span>{elem.text}</span>
+            </DropdownMenuItem>
+          </a>
+        ))}
+      </DropdownMenuContent>
+    </DropdownMenu>
+  );
+}
+
+DropdownMenuDemo.displayName = "DropdownMenuDemo";

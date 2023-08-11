@@ -6,10 +6,11 @@ import { SunIcon, MoonIcon } from "lucide-react";
 
 <Button
   variant={"secondary"}
-  {...dataAttributes.colorSwitchButton.props}
+  className="mx-2"
   role="switch"
   aria-label="Switch to dark mode"
   aria-checked="false"
+  {...dataAttributes.colorSwitchButton.props}
 >
   <SunIcon {...dataAttributes.sunIcon.props} aria-hidden="true" />
   <MoonIcon className="hidden" {...dataAttributes.moonIcon.props} aria-hidden="true" />
