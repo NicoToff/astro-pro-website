@@ -29,9 +29,12 @@ const navigationLinks = [
   { href: "/contact", text: "Contact" },
 ] as const;
 
-export function Nav({ children, dropdownItems }: { children?: React.ReactNode; dropdownItems: ProjectInfo }) {
+type NavProps = { children?: React.ReactNode; dropdownItems: ProjectInfo };
+export function Nav({ children, dropdownItems }: NavProps) {
   return (
-    <NavigationMenu className={`mb-2 mt-4 max-w-none border-b pb-2 print:hidden`}>
+    <NavigationMenu
+      className={`mx-4 mb-2 mt-4 max-w-none flex-row-reverse justify-end border-b pb-2 print:hidden sm:mx-0 sm:flex-row sm:justify-center`}
+    >
       <NavigationMenuList className="hidden sm:flex">
         <NavigationMenuItem className="px-2" aria-description="Go to home page">
           <NavigationMenuLink href="/">
@@ -45,7 +48,7 @@ export function Nav({ children, dropdownItems }: { children?: React.ReactNode; d
       </NavigationMenuList>
       {children}
       <div className="sm:hidden">
-        <DropdownMenuDemo dropdownItems={dropdownItems} />
+        <MobileNav dropdownItems={dropdownItems} />
       </div>
     </NavigationMenu>
   );
@@ -65,7 +68,7 @@ function NavItem({ href, text }: NavItemProps) {
 }
 NavItem.displayName = "NavItem";
 
-export function DropdownMenuDemo({ dropdownItems }: { dropdownItems: ProjectInfo }) {
+export function MobileNav({ dropdownItems }: { dropdownItems: ProjectInfo }) {
   return (
     <DropdownMenu>
       <DropdownMenuTrigger asChild>
@@ -115,5 +118,4 @@ export function DropdownMenuDemo({ dropdownItems }: { dropdownItems: ProjectInfo
     </DropdownMenu>
   );
 }
-
-DropdownMenuDemo.displayName = "DropdownMenuDemo";
+MobileNav.displayName = "DropdownMenuDemo";
