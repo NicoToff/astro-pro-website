@@ -1,5 +1,6 @@
 ---
-image: "https://upload.wikimedia.org/wikipedia/commons/8/8e/Nextjs-logo.svg"
+imageOnLight: "/images/logos/nextjs-logo-light.svg"
+imageOnDark: "/images/logos/nextjs-logo-dark.svg"
 ---
 
 # Next.js

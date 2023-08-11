@@ -1,5 +1,6 @@
 ---
-image: https://docs.astro.build/favicon.svg
+imageOnDark: "/images/logos/astro-logo-dark.svg"
+imageOnLight: "/images/logos/astro-logo-light.svg"
 ---
 
 # Astro

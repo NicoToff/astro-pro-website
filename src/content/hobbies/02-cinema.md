@@ -1,5 +1,9 @@
 ---
-image: https://upload.wikimedia.org/wikipedia/en/c/c1/The_Matrix_Poster.jpg
+image: 
+  - https://upload.wikimedia.org/wikipedia/en/c/c1/The_Matrix_Poster.jpg
+  - https://upload.wikimedia.org/wikipedia/en/e/e0/Game_of_Thrones_Season_8.png
+  - https://upload.wikimedia.org/wikipedia/en/b/bc/Interstellar_film_poster.jpg
+  - https://m.media-amazon.com/images/I/61vLddwKXTL._AC_UF894,1000_QL80_.jpg
 ---
 
 # Movies and series
