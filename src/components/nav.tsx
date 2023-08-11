@@ -76,7 +76,8 @@ export function MobileNav({ dropdownItems }: { dropdownItems: ProjectInfo }) {
           <Menu />
         </Button>
       </DropdownMenuTrigger>
-      <DropdownMenuContent className="w-56">
+      {/* Width of dropdown can be increased at DropdownMenuContent with: "w-56" */}
+      <DropdownMenuContent>
         <a href={"/"}>
           <DropdownMenuItem>
             <span>Home</span>
