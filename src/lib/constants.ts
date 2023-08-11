@@ -18,4 +18,12 @@ export const dataAttributes = {
     props: { "data-moon-icon": "" },
     selector: "[data-moon-icon]",
   } as const satisfies DataAttribute,
+  imageOnLight: {
+    props: { "data-image-on-light": "" },
+    selector: "[data-image-on-light]",
+  } as const satisfies DataAttribute,
+  imageOnDark: {
+    props: { "data-image-on-dark": "" },
+    selector: "[data-image-on-dark]",
+  } as const satisfies DataAttribute,
 } as const;

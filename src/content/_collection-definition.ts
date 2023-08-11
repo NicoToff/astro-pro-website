@@ -3,16 +3,32 @@ import { z } from "astro:content";
 export const collectionDefinitions = {
   skills: {
     type: "content",
-    schema: z.object({
-      image: z.string().optional(),
-    }),
+    schema: z
+      .union([
+        z.object({
+          image: z.string().or(z.array(z.string())).optional(),
+        }),
+        z.object({
+          imageOnLight: z.string(),
+          imageOnDark: z.string(),
+        }),
+      ])
+      .optional(),
   },
 
   hobbies: {
     type: "content",
-    schema: z.object({
-      image: z.string().optional(),
-    }),
+    schema: z
+      .union([
+        z.object({
+          image: z.string().or(z.array(z.string())).optional(),
+        }),
+        z.object({
+          imageOnLight: z.string(),
+          imageOnDark: z.string(),
+        }),
+      ])
+      .optional(),
   },
 
   projects: {

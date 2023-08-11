@@ -9,7 +9,7 @@ const parsedEntries = await getParsedCollection("skills");
 <Page title="NicoToff | Skills" description="Nicolas Toffolo's list of skills">
   {
     parsedEntries.map(({ Content, frontmatter }) => (
-      <SideBySidePageContent className="mt-8 gap-4 first:mt-0" image={frontmatter.image}>
+      <SideBySidePageContent className="mt-8 gap-4 first:mt-0" frontmatter={frontmatter}>
         <Content />
       </SideBySidePageContent>
     ))
