@@ -7,9 +7,9 @@ technologies: [TypeScript, Next.js, React, MySQL, MUI, Chart.js, VSCode]
 
 ---
 
-# Explorateur des Évaluations des Enseignements par les Étudiants
+# HELHa Survey Explorer
 
-> Quite a mouthful, I know.
+> Also called 'Explorateur des Évaluations des Enseignements par les Étudiants'... Quite a mouthful, I know.
 
 ## Context
 
@@ -20,5 +20,3 @@ During the summer 2022, the Quality Department at my school (HELHa) needed a con
 - Create a viable schema for the data
 - Build a web UI to upload data and display it in charts
 - Deploy the project securely
-
-

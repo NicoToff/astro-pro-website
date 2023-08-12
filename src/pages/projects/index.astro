@@ -22,11 +22,11 @@ projects.reverse();
           <CardContent>
             <p>{frontmatter.description}</p>
           </CardContent>
-          <CardFooter className="flex justify-end" aria-description={`Go to ${frontmatter.title}`}>
-            <a href={`${collection}/${frontmatter.href}`}>
-              <ChevronRight />
-            </a>
-          </CardFooter>
+          <a href={`${collection}/${frontmatter.href}`}>
+            <CardFooter className="flex justify-end">
+              <ChevronRight size={30} aria-hidden />
+            </CardFooter>
+          </a>
         </Card>
       ))
     }

@@ -22,6 +22,7 @@ const { frontmatter, Content } = Astro.props.project;
 ---
 
 <Page title={`NicoToff | Project: ${frontmatter.title}`}>
+  <p class="font-extralight italic">Built with: {frontmatter.technologies.join(", ")}</p>
   <Content />
   {
     frontmatter.projectUrl ? (
