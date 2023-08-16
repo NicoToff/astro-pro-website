@@ -1,5 +1,5 @@
 ---
-image: "images/man-at-work.svg"
+image: "/images/man-at-work.svg"
 ---
 
 # Work in progress
