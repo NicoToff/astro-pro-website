@@ -14,7 +14,7 @@ projectUrl: https://nestjs-spells-api.fly.dev/
 
 To hone my back end skills, I decided to build a REST API to fetch data from my homebrew D&D 5e spell list. This is later going to be consumed by a frontend website for my players to search. For early testing purposes, the database is a SQLite file with which I interact using TypeORM.
 
-The API is deployed on Fly.io using Docker.
+The API is deployed on Fly.io using Docker. The full code for this project [is available on GitHub](https://github.com/NicoToff/nestjs-spells-api).
 
 ## Tasks
 
