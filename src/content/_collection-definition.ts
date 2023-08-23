@@ -40,6 +40,7 @@ export const collectionDefinitions = {
       shortDescription: z.string().max(50),
       technologies: z.array(z.string()),
       projectUrl: z.string().optional(),
+      repo: z.string().optional(),
     }),
   },
 } as const;

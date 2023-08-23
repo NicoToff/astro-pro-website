@@ -1,0 +1,15 @@
+---
+type Props = {
+  repoUrl: string;
+};
+const { repoUrl } = Astro.props;
+---
+
+<div class="flex justify-end font-mono text-sm mb-4 gap-x-1.5 m-0">
+  <div>
+    <img class="m-0" src="/images/logos/git-logo-small.svg" />
+  </div>
+  <div>
+    Repo: <a href={repoUrl}>{repoUrl.replace("https://", "")}</a>
+  </div>
+</div>

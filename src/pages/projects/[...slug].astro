@@ -1,5 +1,6 @@
 ---
 import Page from "@/layouts/Page.astro";
+import Repository from "@/components/repository.astro";
 import { getParsedCollection } from "@/lib/helpers";
 
 export async function getStaticPaths() {
@@ -23,6 +24,7 @@ const { frontmatter, Content } = Astro.props.project;
 
 <Page title={`NicoToff | Project: ${frontmatter.title}`}>
   <p class="font-extralight italic">Built with: {frontmatter.technologies.join(", ")}</p>
+  {frontmatter?.repo ? <Repository repoUrl={frontmatter.repo} /> : null}
   <Content />
   {
     frontmatter.projectUrl ? (
