@@ -2,7 +2,7 @@
 image: https://upload.wikimedia.org/wikipedia/commons/4/4f/Csharp_Logo.png
 ---
 
-# C#
+## C#
 
 Monopolies are bad, Microsoft is mean! Yes, but how good are the open-source product they make? Turns out, pretty nice: VSCode, TypeScript, .NET Core... And it's been a while since I wanted to know more about the .NET ecosystem, so I decided to learn C#.
 

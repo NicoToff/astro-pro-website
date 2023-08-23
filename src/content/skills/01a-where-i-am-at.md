@@ -1,4 +1,4 @@
-# Where I am at
+## Where I am at
 
 Among the numerous tasks involved in creating a web experience, I am comfortable with both front and back end development, and I can also deploy and maintain a web application. Here is a scientifically accurate representation of my current skills (higher means better):
 

@@ -6,7 +6,11 @@ import { getParsedCollection } from "@/lib/helpers";
 const parsedEntries = await getParsedCollection("skills");
 ---
 
-<Page title="NicoToff | Skills" description="Nicolas Toffolo's list of skills">
+<Page
+  title="NicoToff | Skills"
+  description="Nicolas Toffolo's list of skills"
+  class="prose-h2:text-3xl prose-h2:font-bold"
+>
   {
     parsedEntries.map(({ Content, frontmatter }) => (
       <SideBySidePageContent className="mt-8 gap-4 first:mt-0" frontmatter={frontmatter}>

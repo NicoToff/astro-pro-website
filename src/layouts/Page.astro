@@ -5,6 +5,7 @@ import { Nav } from "@/components/nav";
 import { Footer } from "@/components/footer";
 import { getParsedCollection } from "@/lib/helpers";
 import type { ProjectInfo } from "@/types/dropdown";
+import { cn } from "@/lib/utils";
 
 const collectionToGet = "projects";
 
@@ -23,19 +24,22 @@ dropdownItems.push({
   description: "See all projects",
 });
 
-type Props = {
-  title: string;
-  description?: string;
-};
-type MarkdownProps = {
-  frontmatter: Props;
-};
 const title = Astro.props.title ?? (Astro.props as unknown as MarkdownProps).frontmatter?.title ?? "NicoToff";
 const description =
   Astro.props.description ??
   (Astro.props as unknown as MarkdownProps).frontmatter?.description ??
   "Nicolas Toffolo, software and web developer";
 const ogDescription = description ?? "Nicolas Toffolo's portfolio website";
+const bodyClass = cn("mb-4 container mx-auto", Astro.props.class);
+
+type MarkdownProps = {
+  frontmatter: Props;
+};
+type Props = {
+  title: string;
+  description?: string;
+  class?: string;
+};
 ---
 
 <!DOCTYPE html>
@@ -58,7 +62,7 @@ const ogDescription = description ?? "Nicolas Toffolo's portfolio website";
     <meta name="generator" content={Astro.generator} />
     <title>{title}</title>
   </head>
-  <body class="mb-4 container mx-auto">
+  <body class={bodyClass}>
     <Nav client:load dropdownItems={dropdownItems}>
       <ToggleModeButton />
     </Nav>
