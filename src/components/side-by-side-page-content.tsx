@@ -34,7 +34,7 @@ function SideImage({ image, props }: SideImageProps) {
     <div
       className={cn(
         "hidden md:p-4",
-        isArray ? "md:grid md:basis-1/2 md:grid-cols-2 md:gap-2" : "md:block md:basis-1/4"
+        isArray ? "items-center md:grid md:basis-1/2 md:grid-cols-2 md:gap-2" : "md:block md:basis-1/4"
       )}
       {...props}
     >
