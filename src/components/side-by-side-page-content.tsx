@@ -41,7 +41,7 @@ function SideImage({ image, props }: SideImageProps) {
       {!isArray ? (
         <img src={image} alt="" loading="lazy" />
       ) : (
-        image.map((img, i) => <img key={i} src={img} alt="" loading="lazy" />)
+        image.map((img) => <img key={img} src={img} alt="" loading="lazy" />)
       )}
     </div>
   );
