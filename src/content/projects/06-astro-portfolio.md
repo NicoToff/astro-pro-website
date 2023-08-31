@@ -1,11 +1,10 @@
 ---
 title: Astro Portfolio Website
 href: astro-portfolio-website
-shortDescription: My portfolio website to showcase my projects 
+shortDescription: My portfolio website to showcase my projects
 description: Astro is the perfect tool to build a website that mostly serves static content. I used it to build this portfolio website.
 technologies: [TypeScript, Astro, React, Tailwind, Radix UI, VSCode, Vercel, pnpm]
 repo: https://github.com/NicoToff/astro-pro-website
-
 ---
 
 # Astro Portfolio Website
@@ -24,4 +23,3 @@ Back in June 2022, I built a rudimentary portfolio website using Express.js, EJS
 - Enjoy the battle-tested components built by [shadcn](https://ui.shadcn.com/)
 - Organise all the content to be handled in markdown files
 - Use dynamic routing to create a dedicated page for some content
-

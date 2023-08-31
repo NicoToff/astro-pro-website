@@ -1,10 +1,10 @@
 ---
 title: Food e-commerce POC
 href: food-ecommerce-poc
-shortDescription: Headless e-commerce environment  
+shortDescription: Headless e-commerce environment
 description: During my intership at Mirahi, I prototyped fond e-commerce platform for food orders with Vendure and Next.js.
-technologies: [TypeScript, NestJS, Vendure, GraphQL, Next.js, React, Tailwind, Radix UI, PostgreSQL, VSCode, Webstorm, Nx, Jira]
-
+technologies:
+  [TypeScript, NestJS, Vendure, GraphQL, Next.js, React, Tailwind, Radix UI, PostgreSQL, VSCode, Webstorm, Nx, Jira]
 ---
 
 # A Vendure prototype
@@ -23,4 +23,5 @@ Mirahi, a web agency in Brussels, needed to assess the viability of Vendure, a N
 - Improve accessibility on the storefront with Radix UI (shadcn components)
 
 ## Link
-The final paper I wrote about this project [can be found here](https://pdfhost.io/v/rpu9bQYoj_Travail_de_fin_dtudes_Nicolas_Toffolo) (French). 
+
+The final paper I wrote about this project [can be found here](https://pdfhost.io/v/rpu9bQYoj_Travail_de_fin_dtudes_Nicolas_Toffolo) (French).

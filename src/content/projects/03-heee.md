@@ -4,7 +4,6 @@ href: heeee
 shortDescription: A web tool to parse and analyse survey results
 description: The Quality Department at HELHa needed a tool to display results and compare them over several years.
 technologies: [TypeScript, Next.js, React, MySQL, MUI, Chart.js, VSCode]
-
 ---
 
 # HELHa Survey Explorer

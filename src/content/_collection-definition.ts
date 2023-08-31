@@ -20,12 +20,12 @@ const titleBothImages = z.object({
 export const collectionDefinitions = {
   skills: {
     type: "content",
-    schema: z.union([titleOnly, titleImage, titleBothImages])   
+    schema: z.union([titleOnly, titleImage, titleBothImages]),
   },
 
   hobbies: {
     type: "content",
-    schema: z.union([titleOnly, titleImage, titleBothImages])
+    schema: z.union([titleOnly, titleImage, titleBothImages]),
   },
 
   projects: {

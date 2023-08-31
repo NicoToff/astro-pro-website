@@ -7,7 +7,8 @@
     "start": "pnpm dev",
     "build": "astro build",
     "preview": "astro preview --port 3000",
-    "astro": "astro"
+    "astro": "astro",
+    "format": "prettier --write . --plugin=prettier-plugin-astro"
   },
   "dependencies": {
     "@astrojs/react": "3.0.0",

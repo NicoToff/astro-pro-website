@@ -5,7 +5,6 @@ shortDescription: A website for my student summaries
 description: My very first project! A fully static website to share my summaries with the other students.
 technologies: [HTML, CSS, NotePad++, FileZilla]
 projectUrl: https://helharevision.000webhostapp.com/
-
 ---
 
 # HELHa Révision

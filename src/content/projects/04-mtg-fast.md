@@ -7,11 +7,11 @@ technologies: [TypeScript, Next.js, React, Typesense, InstantSearch.js, Python, 
 projectUrl: https://mtg-fast.com/
 ---
 
-# *Magic: the Gathering*, blazingly fast
+# _Magic: the Gathering_, blazingly fast
 
 ## Context
 
-Many great tools already exist for browsing the *Magic: the Gathering* card collection (around 30,000 cards). However, none of them offered the features I was looking for, including search-as-you-type capabilities, typo tolerance, specific advanced search fields, and accurate European pricing information. With my newly acquired web development skills, I started building a web experience that solved my problems.
+Many great tools already exist for browsing the _Magic: the Gathering_ card collection (around 30,000 cards). However, none of them offered the features I was looking for, including search-as-you-type capabilities, typo tolerance, specific advanced search fields, and accurate European pricing information. With my newly acquired web development skills, I started building a web experience that solved my problems.
 
 ## Tasks
 

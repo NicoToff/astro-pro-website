@@ -20,7 +20,7 @@ export function Footer() {
 
   return (
     <footer className="m-4 mt-8 border-t print:hidden">
-      <div className="mx-auto flex w-full max-w-screen-lg items-center justify-between py-3">
+      <div className="flex mx-auto w-full max-w-screen-lg items-center justify-between py-3">
         <div aria-hidden="true">
           <a href="/" className="hover:underline" aria-hidden="true">
             © <span data-current-year>2023</span>

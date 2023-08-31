@@ -1,7 +1,7 @@
 ---
 title: D&D Spell API
 href: dnd-spell-api
-shortDescription: A REST API to query homebrew spells for D&D 5e 
+shortDescription: A REST API to query homebrew spells for D&D 5e
 description: Using NestJS, I built an OpenAPI-compliant REST service to query D&D 5e homebrew spells data from any frontend application.
 technologies: [TypeScript, NestJS, TypeORM, SQLite, Swagger, Docker, VSCode, Fly.io, pnpm]
 projectUrl: https://nestjs-spells-api.fly.dev/
