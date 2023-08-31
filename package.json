@@ -3,10 +3,10 @@
   "type": "module",
   "version": "0.0.1",
   "scripts": {
-    "dev": "astro dev",
+    "dev": "astro dev --port 3000",
     "start": "pnpm dev",
     "build": "astro build",
-    "preview": "astro preview",
+    "preview": "astro preview --port 3000",
     "astro": "astro"
   },
   "dependencies": {
