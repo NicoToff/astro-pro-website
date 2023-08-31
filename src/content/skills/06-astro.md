@@ -1,9 +1,8 @@
 ---
+title: Astro
 imageOnDark: "/images/logos/astro-logo-dark.svg"
 imageOnLight: "/images/logos/astro-logo-light.svg"
 ---
-
-## Astro
 
 For smaller, content-oriented projects, Next.js feels a bit like bringing a bazooka to a knife fight. Astro is the perfect alternative for that. It offers just the right amount of abstraction and flexibility to build a static website with a modern toolkit.
 

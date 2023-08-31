@@ -4,16 +4,21 @@ import type { Frontmatter } from "@/types/collections";
 
 type SideBySidePageContentProps = {
   frontmatter: Frontmatter<"hobbies" | "skills">;
+  index: number;
   className?: string;
   children?: React.ReactNode;
 };
-export function SideBySidePageContent({ frontmatter, className, children }: SideBySidePageContentProps) {
+export function SideBySidePageContent({ frontmatter, className, children, index }: SideBySidePageContentProps) {
+  const Heading = index === 0 ? "h1" : "h2";
   return (
     <div className={cn("md:flex md:items-center even:md:flex-row-reverse", className)}>
-      <div className={!isEmpty(frontmatter) ? "basis-3/4" : undefined}>{children}</div>
-      {frontmatter && "image" in frontmatter ? (
+      <div className={!hasNoImg(frontmatter) ? "basis-3/4" : undefined}>
+        <Heading>{frontmatter.title}</Heading>
+        {children}
+      </div>
+      {"image" in frontmatter ? (
         <SideImage image={frontmatter.image} />
-      ) : frontmatter && "imageOnDark" in frontmatter ? (
+      ) : "imageOnDark" in frontmatter ? (
         <>
           <SideImage image={frontmatter.imageOnLight} props={dataAttributes.imageOnLight.props} />
           <SideImage image={frontmatter.imageOnDark} props={dataAttributes.imageOnDark.props} />
@@ -47,6 +52,7 @@ function SideImage({ image, props }: SideImageProps) {
   );
 }
 
-function isEmpty(obj: Frontmatter<"hobbies" | "skills">) {
-  return obj && Object.keys(obj).length === 0;
+function hasNoImg(obj: Frontmatter<"hobbies" | "skills">) {
+  const keys = Object.keys(obj);
+  return keys.every((k) => !k.includes("image"));
 }

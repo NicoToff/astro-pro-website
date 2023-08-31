@@ -8,8 +8,8 @@ const parsedEntries = await getParsedCollection("hobbies");
 
 <Page title="NicoToff | Hobbies" description="Nicolas Toffolo's hobbies" class="prose-h2:text-3xl prose-h2:font-bold">
   {
-    parsedEntries.map(({ Content, frontmatter }) => (
-      <SideBySidePageContent className="mt-8 gap-4 first:mt-0" frontmatter={frontmatter}>
+    parsedEntries.map(({ Content, frontmatter }, i) => (
+      <SideBySidePageContent className="mt-8 gap-4 first:mt-0" frontmatter={frontmatter} index={i}>
         <Content />
       </SideBySidePageContent>
     ))

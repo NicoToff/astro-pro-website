@@ -1,4 +1,6 @@
-# A passion for learning
+---
+title: A passion for learning
+---
 
 Over the past three years, I've been diving into the world of IT, exploring everything from programming and networking to electronics and cybersecurity. Looking back, I'm proud of the knowledge I manage to acquire and the challenges I've overcome.
 

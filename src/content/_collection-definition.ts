@@ -1,34 +1,31 @@
 import { z } from "astro:content";
 
+const title = { title: z.string() };
+
+const titleOnly = z.object({
+  ...title,
+});
+
+const titleImage = z.object({
+  ...title,
+  image: z.string(),
+});
+
+const titleBothImages = z.object({
+  ...title,
+  imageOnLight: z.string(),
+  imageOnDark: z.string(),
+});
+
 export const collectionDefinitions = {
   skills: {
     type: "content",
-    schema: z
-      .union([
-        z.object({
-          image: z.string().or(z.array(z.string())).optional(),
-        }),
-        z.object({
-          imageOnLight: z.string(),
-          imageOnDark: z.string(),
-        }),
-      ])
-      .optional(),
+    schema: z.union([titleOnly, titleImage, titleBothImages])   
   },
 
   hobbies: {
     type: "content",
-    schema: z
-      .union([
-        z.object({
-          image: z.string().or(z.array(z.string())).optional(),
-        }),
-        z.object({
-          imageOnLight: z.string(),
-          imageOnDark: z.string(),
-        }),
-      ])
-      .optional(),
+    schema: z.union([titleOnly, titleImage, titleBothImages])
   },
 
   projects: {
