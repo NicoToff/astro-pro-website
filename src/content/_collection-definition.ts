@@ -1,4 +1,5 @@
 import { z } from "astro:content";
+import type { ContentConfig } from "node_modules/astro/dist/content/utils";
 
 const title = { title: z.string() };
 
@@ -17,7 +18,7 @@ const titleBothImages = z.object({
   imageOnDark: z.string(),
 });
 
-export const collectionDefinitions = {
+export const collectionDefinitions: ContentConfig["collections"] = {
   skills: {
     type: "content",
     schema: z.union([titleOnly, titleImage, titleBothImages]),
@@ -40,4 +41,4 @@ export const collectionDefinitions = {
       repo: z.string().optional(),
     }),
   },
-} as const;
+};
