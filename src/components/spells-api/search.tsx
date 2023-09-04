@@ -59,15 +59,10 @@ export function Search() {
       <Input value={value} onChange={onChange} placeholder="Search by name..." />
       {isFetching || spells.length ? (
         <div className="mt-2 grid gap-2 lg:grid-cols-2">
-          {spells.length !== 0 ? (
-            spells.map((s) => <SpellCard key={s.name} spell={s} />)
-          ) : (
-            <>
-              <SpellCardSkeleton />
-              <SpellCardSkeleton />
-            </>
-          )}
+          {spells.length ? spells.map((s) => <SpellCard key={s.name} spell={s} />) : <SpellCardSkeleton />}
         </div>
+      ) : value !== "" ? (
+        <p className="mt-4 text-center text-xl">{`No spells found.`}</p>
       ) : null}
     </>
   );
