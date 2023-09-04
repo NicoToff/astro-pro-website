@@ -1,9 +1,8 @@
-import { cn } from "@/lib/utils";
 import { Card, CardContent, CardDescription, CardFooter, CardHeader, CardTitle } from "@/shadcn/ui/card";
+import { cn } from "@/lib/utils";
 import { Skeleton } from "@/shadcn/ui/skeleton";
-import type { components } from "@/types/spells-api";
 
-type Spell = components["schemas"]["Spell"];
+import type { Spell } from "@/types/spell";
 
 export function SpellCard({ spell, className }: { spell: Spell; className?: string }) {
   return (

@@ -1,11 +1,9 @@
 import { Input } from "@/shadcn/ui/input";
 import { useEffect, useState, type ChangeEvent } from "react";
 
-import { Skeleton } from "@/shadcn/ui/skeleton";
-import type { components } from "@/types/spells-api";
 import { SpellCard, SpellCardSkeleton } from "./spell-card";
 
-type Spell = components["schemas"]["Spell"];
+import type { Spell } from "@/types/spell";
 
 export function Search() {
   //   const url = "https://nestjs-spells-api.fly.dev/spells" as const;
