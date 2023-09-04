@@ -8,7 +8,8 @@
     "build": "astro build",
     "preview": "astro preview --port 3000",
     "astro": "astro",
-    "format": "prettier --write . --plugin=prettier-plugin-astro"
+    "format": "prettier --write . --plugin=prettier-plugin-astro",
+    "open-api:gen:dev": "pnpm dlx openapi-typescript http://0.0.0.0:8000/api-json --output src/types/spells-api.ts"
   },
   "dependencies": {
     "@astrojs/mdx": "1.0.0",
@@ -37,6 +38,7 @@
     "eslint-plugin-astro": "0.29.0",
     "eslint-plugin-jsx-a11y": "6.7.1",
     "eslint-plugin-mdx": "2.2.0",
+    "openapi-typescript": "^6.5.4",
     "prettier": "3.0.3",
     "prettier-plugin-astro": "0.12.0",
     "prettier-plugin-tailwindcss": "0.5.4",
