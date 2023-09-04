@@ -1,5 +1,5 @@
 import { Input } from "@/shadcn/ui/input";
-import { useEffect, useState, type ChangeEvent } from "react";
+import { useEffect, useState, useRef, type ChangeEvent } from "react";
 
 import { SpellCard, SpellCardSkeleton } from "./spell-card";
 
@@ -7,6 +7,8 @@ import type { Spell } from "@/types/spell";
 
 export function Search() {
   const url = "https://nestjs-spells-api.fly.dev/spells" as const;
+
+  const isFirstRender = useRef(true);
 
   const [value, setValue] = useState("");
   const [spells, setSpells] = useState<Spell[]>([]);
@@ -25,10 +27,15 @@ export function Search() {
 
     if (params.has("name")) {
       setValue(params.get("name") ?? "");
+      setIsFetching(true);
     }
   }, []);
 
   useEffect(() => {
+    if (isFirstRender.current === true) {
+      isFirstRender.current = false;
+      return;
+    }
     if (value === "") {
       setSpells([]);
       setIsFetching(false);
