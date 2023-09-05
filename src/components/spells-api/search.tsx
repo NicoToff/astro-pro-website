@@ -1,7 +1,9 @@
-import { Input } from "@/shadcn/ui/input";
 import { useEffect, useState, useRef, type ChangeEvent } from "react";
 
 import { SpellCard, SpellCardSkeleton } from "./spell-card";
+import { SearchInput } from "./search-input";
+
+import { useOnMount } from "../hooks/onMount";
 
 import type { Spell } from "@/types/spell";
 
@@ -16,26 +18,23 @@ export function Search() {
 
   function onChange(e: ChangeEvent<HTMLInputElement>) {
     setValue(e.target.value);
-    setSpells([]);
     setIsFetching(true);
   }
 
-  useEffect(() => {
-    if (typeof window === "undefined") return;
-
+  useOnMount(() => {
     const params = new URLSearchParams(window.location.search);
-
     if (params.has("name")) {
-      setValue(params.get("name") ?? "");
+      setValue(params.get("name") as string);
       setIsFetching(true);
     }
-  }, []);
+  });
 
   useEffect(() => {
     if (isFirstRender.current === true) {
       isFirstRender.current = false;
       return;
     }
+
     if (value === "") {
       setSpells([]);
       setIsFetching(false);
@@ -45,7 +44,6 @@ export function Search() {
 
     const timeoutId = setTimeout(() => {
       const params = new URLSearchParams({ name: value }).toString();
-
       updateBrowserHistory(params);
 
       fetch(`${url}?${params}`)
@@ -63,7 +61,7 @@ export function Search() {
 
   return (
     <>
-      <Input value={value} onChange={onChange} placeholder="Search by name..." />
+      <SearchInput isLoading={isFetching} value={value} onChange={onChange} placeholder="Search by name..." />
       {isFetching || spells.length ? (
         <div className="mt-2 grid gap-2 lg:grid-cols-2">
           {spells.length ? spells.map((s) => <SpellCard key={s.name} spell={s} />) : <SpellCardSkeleton />}
@@ -77,6 +75,6 @@ export function Search() {
 
 function updateBrowserHistory(params: string) {
   if (typeof window !== "undefined") {
-    window.history.replaceState(null, "", `?${params}`);
+    window.history.replaceState(null, "", encodeURI(`?${params}`));
   }
 }
