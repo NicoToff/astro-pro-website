@@ -10,7 +10,7 @@ export interface paths {
      * Get all spells that match query
      * @description This endpoint returns all homebrewed spells in the database. You can filter the results by setting various query parameters. If no spells match the query, an empty array is returned.
      */
-    get: operations["SpellsController_mongoFindAll"];
+    get: operations["SpellsController_findAll"];
     /**
      * Reseed the database with spells
      * @description This endpoint deletes all spells in the database and replaces them with the ones provided from the request body.
@@ -53,7 +53,7 @@ export interface components {
       range: string;
       area?: string;
       duration: string;
-      components: string[];
+      components: ("V" | "S" | "M")[];
       material?: string;
       concentration?: boolean;
       ritual?: boolean;
@@ -85,7 +85,7 @@ export interface operations {
    * Get all spells that match query
    * @description This endpoint returns all homebrewed spells in the database. You can filter the results by setting various query parameters. If no spells match the query, an empty array is returned.
    */
-  SpellsController_mongoFindAll: {
+  SpellsController_findAll: {
     parameters: {
       query?: {
         /** @description Whether the spell can be cast as a ritual */
@@ -106,7 +106,7 @@ export interface operations {
          * @description Strings of characters that the spell name must contain
          * @example fire
          */
-        name?: unknown;
+        name?: string;
       };
     };
     responses: {

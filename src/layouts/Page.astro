@@ -30,7 +30,8 @@ const description =
   (Astro.props as unknown as MarkdownProps).frontmatter?.description ??
   "Nicolas Toffolo, software and web developer";
 const ogDescription = description ?? "Nicolas Toffolo's portfolio website";
-const bodyClass = cn("mb-4 container mx-auto", Astro.props.class);
+// const containerClass = ["container", "mx-auto"] // Temporarily disabled to avoid layout shifts from Radix
+const bodyClass = cn("mb-4", /*...containerClass,*/ Astro.props.class);
 
 type MarkdownProps = {
   frontmatter: Props;
@@ -66,8 +67,7 @@ type Props = {
     <Nav client:load dropdownItems={dropdownItems}>
       <ToggleModeButton />
     </Nav>
-
-    <main class="max-w-screen-lg mx-auto mt-4 p-4 prose prose-img:mx-auto dark:prose-invert">
+    <main class="prose mx-auto mt-4 max-w-screen-lg p-4 dark:prose-invert prose-img:mx-auto">
       <slot />
     </main>
 
