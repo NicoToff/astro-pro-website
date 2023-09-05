@@ -207,7 +207,7 @@ export function Search({ url }: SearchProps) {
             {`School`}
           </Label>
           <Select
-            defaultOpen
+            
             value={filter.school}
             name={"school" satisfies SearchState["school"]}
             onValueChange={(value) => onValueChange(value, "school")}
