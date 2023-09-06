@@ -1,81 +1,25 @@
 import { useEffect, useState, useReducer, useRef, type ChangeEvent } from "react";
-
-import { SpellCard, SpellCardSkeleton } from "./spell-card";
-import { SearchInput } from "./search-input";
-
-import { useOnMount } from "../hooks/onMount";
+import { FilterX } from "lucide-react";
 
 import { Input } from "@/shadcn/ui/input";
 import { Label } from "@/shadcn/ui/label";
-import { Checkbox } from "@/shadcn/ui/checkbox";
-
 import { Button } from "@/shadcn/ui/button";
-import { FilterX, Trash } from "lucide-react";
 
-import type { Spell } from "@/types/spell";
+import { SearchInput } from "./search-input";
+import { ControlledSelect } from "./controlled-select";
+import { ControlledCheckbox } from "./controlled-checkbox";
+
+import { SCHOOLS, SOURCES, COMPONENTS, ActionEnum, initialSearchState, arrayFields } from "./constants";
+import { SpellCard, SpellCardSkeleton } from "./spell-card";
+import { filterIsEmpty, stringifyArrayFields, updateBrowserHistory } from "./helpers";
+import { searchReducer } from "./reducer.ts";
+
+import { useOnMount } from "../hooks/onMount";
+
 import type { CheckedState } from "@radix-ui/react-checkbox";
-
-const ActionInit = "init" as const;
-const ActionFullReset = "fullReset" as const;
-const ActionTypeEnum = {
-  UPDATE: "updateField",
-  REMOVE: "removeField",
-} as const;
-type ActionType = (typeof ActionTypeEnum)[keyof typeof ActionTypeEnum];
-
-const SCHOOLS = [
-  "Abjuration",
-  "Conjuration",
-  "Divination",
-  "Enchantment",
-  "Evocation",
-  "Illusion",
-  "Necromancy",
-  "Transmutation",
-] as const;
-
-const initialSearchState = {
-  name: "",
-  level: "",
-  ritual: "",
-  concentration: "",
-  school: "",
-  group: "",
-  sources: "",
-  components: "",
-};
-
-type SearchState = typeof initialSearchState;
-
-type Action =
-  | {
-      type: ActionType;
-      fieldName: keyof SearchState;
-      value?: string;
-    }
-  | {
-      type: typeof ActionInit;
-      initValue: SearchState;
-    }
-  | {
-      type: typeof ActionFullReset;
-    };
-
-function searchReducer(state: SearchState, action: Action) {
-  switch (action.type) {
-    case ActionInit:
-      return action.initValue;
-    case ActionTypeEnum.UPDATE:
-      return { ...state, [action.fieldName]: action.value };
-    case ActionTypeEnum.REMOVE: {
-      return { ...state, [action.fieldName]: "" };
-    }
-    case ActionFullReset:
-      return { ...initialSearchState };
-    default:
-      return state;
-  }
-}
+import type { Spell } from "@/types/spell";
+import type { Writeable } from "@/types/helpers";
+import type { SearchState, SearchStateKey, SearchStateArrayField, SearchStateStringField } from "./types";
 
 type SearchProps = {
   url: string;
@@ -90,42 +34,46 @@ export function Search({ url }: SearchProps) {
   function onChange(e: ChangeEvent<HTMLInputElement>) {
     setIsFetching(true);
     const { name, value } = e.target;
-    dispatchFilter({ type: ActionTypeEnum.UPDATE, fieldName: name as keyof SearchState, value });
+    dispatchFilter({ type: ActionEnum.UPDATE, fieldName: name as SearchStateKey, value });
   }
 
-  function onCheckedChange(e: CheckedState, fieldName: keyof SearchState) {
+  function onCheckedChange(e: CheckedState, fieldName: SearchStateKey) {
     setIsFetching(true);
     const value = e.valueOf().toString();
     if (value === "true") {
       dispatchFilter({
-        type: ActionTypeEnum.UPDATE,
+        type: ActionEnum.UPDATE,
         fieldName,
         value,
       });
     } else {
       dispatchFilter({
-        type: ActionTypeEnum.REMOVE,
+        type: ActionEnum.REMOVE,
         fieldName,
       });
     }
   }
 
-  function onValueChange(value: string, fieldName: keyof SearchState) {
+  function onSelectChange(e: ChangeEvent<HTMLSelectElement>, fieldName: SearchStateKey) {
     setIsFetching(true);
-    dispatchFilter({ type: ActionTypeEnum.UPDATE, fieldName, value });
+    dispatchFilter({ type: ActionEnum.UPDATE, fieldName, value: e.target.value });
   }
 
   useOnMount(() => {
     const params = new URLSearchParams(window.location.search);
-    const initValue: SearchState = { ...initialSearchState };
-    for (const key of Object.keys(initialSearchState)) {
+    const initValue = { ...initialSearchState } as Writeable<SearchState>;
+    for (const key of Object.keys(initValue)) {
       const value = params.get(key);
       if (value) {
-        initValue[key as keyof SearchState] = value;
+        if (arrayFields.includes(key as SearchStateArrayField)) {
+          initValue[key as SearchStateArrayField] = value.split(",");
+          continue;
+        }
+        initValue[key as SearchStateStringField] = value;
       }
     }
     if (!filterIsEmpty(initValue)) {
-      dispatchFilter({ type: ActionInit, initValue });
+      dispatchFilter({ type: ActionEnum.INIT, initValue });
       setIsFetching(true);
     }
   });
@@ -144,7 +92,7 @@ export function Search({ url }: SearchProps) {
     }
 
     const timeoutId = setTimeout(() => {
-      const leanFilter = Object.entries(filter).filter(([, v]) => v !== "");
+      const leanFilter = Object.entries(stringifyArrayFields(filter)).filter(([, v]) => v !== "");
       const params = new URLSearchParams(leanFilter).toString();
       updateBrowserHistory(params);
 
@@ -166,7 +114,7 @@ export function Search({ url }: SearchProps) {
       <div className="flex flex-row-reverse">
         <Button
           variant={"destructive"}
-          onClick={() => dispatchFilter({ type: ActionFullReset })}
+          onClick={() => dispatchFilter({ type: ActionEnum.FULL_RESET })}
           disabled={filterIsEmpty(filter)}
           className="relative mb-2 flex gap-1"
         >
@@ -174,23 +122,25 @@ export function Search({ url }: SearchProps) {
           <FilterX size={20} />
         </Button>
       </div>
+
       <SearchInput
         isLoading={isFetching}
         value={filter.name}
-        name={"name" satisfies SearchState["name"]}
+        name={"name" satisfies SearchStateKey}
         onChange={onChange}
         placeholder="Search by name..."
       />
-      <div className="grid place-content-between sm:grid-flow-col-dense">
+
+      <div className="flex flex-wrap justify-evenly">
         <div className="m-2 flex items-center space-x-2">
-          <Label htmlFor={"level" satisfies SearchState["level"]} className="font-bold">
+          <Label htmlFor={"level" satisfies SearchStateKey} className="font-bold">
             {`Level`}
           </Label>
           <Input
             type="number"
             value={filter.level}
-            name={"level" satisfies SearchState["level"]}
-            id={"level" satisfies SearchState["level"]}
+            name={"level" satisfies SearchStateKey}
+            id={"level" satisfies SearchStateKey}
             onChange={onChange}
             min={0}
             max={9}
@@ -199,57 +149,43 @@ export function Search({ url }: SearchProps) {
         </div>
 
         <div className="flex">
-          <div className="m-2 flex items-center space-x-2">
-            <Label htmlFor={"concentration" satisfies SearchState["concentration"]} className="font-bold">
-              {`Concentration`}
-            </Label>
-            <Checkbox
-              checked={filter.concentration === "true"}
-              name={"concentration" satisfies SearchState["concentration"]}
-              id={"concentration" satisfies SearchState["concentration"]}
-              onCheckedChange={(e) => onCheckedChange(e, "concentration")}
+          {[
+            { fieldName: "concentration" as SearchStateStringField },
+            { fieldName: "ritual" as SearchStateStringField },
+          ].map(({ fieldName }) => (
+            <ControlledCheckbox
+              key={fieldName}
+              fieldName={fieldName}
+              value={filter[fieldName]}
+              onCheckedChange={(e) => onCheckedChange(e, fieldName)}
             />
-          </div>
+          ))}
+        </div>
 
-          <div className="m-2 flex items-center space-x-2">
-            <Label htmlFor={"ritual" satisfies SearchState["ritual"]} className="font-bold">
-              {`Ritual`}
-            </Label>
-            <Checkbox
-              checked={filter.ritual === "true"}
-              name={"ritual" satisfies SearchState["ritual"]}
-              id={"ritual" satisfies SearchState["ritual"]}
-              onCheckedChange={(e) => onCheckedChange(e, "ritual")}
-            />
-          </div>
-        </div>
-        <div className="m-2 flex items-center space-x-2">
-          <Label htmlFor={"school" satisfies SearchState["school"]} className="font-bold">
-            {`School`}
-          </Label>
-          <select
-            value={filter.school}
-            id={"school" satisfies SearchState["school"]}
-            name={"school" satisfies SearchState["school"]}
-            onChange={(e) => dispatchFilter({ fieldName: "school", type: "updateField", value: e.target.value })}
-            className="h-10 w-full rounded-md border border-input bg-background px-3 py-2 text-sm ring-offset-background focus:outline-none focus:ring-2 focus:ring-ring focus:ring-offset-2 disabled:cursor-not-allowed disabled:opacity-50"
-          >
-            <option value="" aria-placeholder="No school selected"></option>
-            {SCHOOLS.map((school) => (
-              <option value={school.toLowerCase()} key={school}>
-                {school}
-              </option>
-            ))}
-          </select>
-          <Button
-            variant={"secondary"}
-            size={"sm"}
-            onClick={() => dispatchFilter({ type: ActionTypeEnum.REMOVE, fieldName: "school" })}
-            disabled={filter.school === ""}
-          >
-            <FilterX size={20} />
-          </Button>
-        </div>
+        <ControlledSelect
+          fieldName={"school" satisfies SearchStateKey}
+          value={filter.school}
+          options={SCHOOLS}
+          onSelectChange={(e) =>
+            dispatchFilter({ fieldName: "school", type: ActionEnum.UPDATE, value: e.target.value })
+          }
+          onResetClick={() => dispatchFilter({ type: ActionEnum.REMOVE, fieldName: "school" })}
+        />
+
+        {[
+          { fieldName: "sources" as SearchStateArrayField, options: SOURCES },
+          { fieldName: "components" as SearchStateArrayField, options: COMPONENTS },
+        ].map(({ fieldName, options }) => (
+          <ControlledSelect
+            key={fieldName}
+            fieldName={fieldName}
+            value={filter[fieldName]}
+            options={options}
+            onSelectChange={(e) => onSelectChange(e, fieldName)}
+            onResetClick={() => dispatchFilter({ type: ActionEnum.REMOVE, fieldName })}
+            multiple
+          />
+        ))}
       </div>
 
       {isFetching || spells.length ? (
@@ -261,14 +197,4 @@ export function Search({ url }: SearchProps) {
       ) : null}
     </>
   );
-}
-
-function updateBrowserHistory(params: string) {
-  if (typeof window !== "undefined") {
-    window.history.replaceState(null, "", encodeURI(`?${params}`));
-  }
-}
-
-export function filterIsEmpty(filter: SearchState) {
-  return Object.values(filter).every((v) => v === "");
 }
