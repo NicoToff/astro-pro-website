@@ -9,9 +9,8 @@ import { Input } from "@/shadcn/ui/input";
 import { Label } from "@/shadcn/ui/label";
 import { Checkbox } from "@/shadcn/ui/checkbox";
 
-import { Select, SelectContent, SelectItem, SelectTrigger, SelectValue } from "@/shadcn/ui/select";
 import { Button } from "@/shadcn/ui/button";
-import { Trash } from "lucide-react";
+import { FilterX, Trash } from "lucide-react";
 
 import type { Spell } from "@/types/spell";
 import type { CheckedState } from "@radix-ui/react-checkbox";
@@ -23,6 +22,17 @@ const ActionTypeEnum = {
   REMOVE: "removeField",
 } as const;
 type ActionType = (typeof ActionTypeEnum)[keyof typeof ActionTypeEnum];
+
+const SCHOOLS = [
+  "Abjuration",
+  "Conjuration",
+  "Divination",
+  "Enchantment",
+  "Evocation",
+  "Illusion",
+  "Necromancy",
+  "Transmutation",
+] as const;
 
 const initialSearchState = {
   name: "",
@@ -153,6 +163,17 @@ export function Search({ url }: SearchProps) {
 
   return (
     <>
+      <div className="flex flex-row-reverse">
+        <Button
+          variant={"destructive"}
+          onClick={() => dispatchFilter({ type: ActionFullReset })}
+          disabled={filterIsEmpty(filter)}
+          className="relative mb-2 flex gap-1"
+        >
+          <div>{`Reset all filters`}</div>
+          <FilterX size={20} />
+        </Button>
+      </div>
       <SearchInput
         isLoading={isFetching}
         value={filter.name}
@@ -160,7 +181,7 @@ export function Search({ url }: SearchProps) {
         onChange={onChange}
         placeholder="Search by name..."
       />
-      <div className="grid place-content-evenly md:grid-flow-col-dense">
+      <div className="grid place-content-between sm:grid-flow-col-dense">
         <div className="m-2 flex items-center space-x-2">
           <Label htmlFor={"level" satisfies SearchState["level"]} className="font-bold">
             {`Level`}
@@ -206,58 +227,37 @@ export function Search({ url }: SearchProps) {
           <Label htmlFor={"school" satisfies SearchState["school"]} className="font-bold">
             {`School`}
           </Label>
-          <Select
-            
+          <select
             value={filter.school}
+            id={"school" satisfies SearchState["school"]}
             name={"school" satisfies SearchState["school"]}
-            onValueChange={(value) => onValueChange(value, "school")}
+            onChange={(e) => dispatchFilter({ fieldName: "school", type: "updateField", value: e.target.value })}
+            className="h-10 w-full rounded-md border border-input bg-background px-3 py-2 text-sm ring-offset-background focus:outline-none focus:ring-2 focus:ring-ring focus:ring-offset-2 disabled:cursor-not-allowed disabled:opacity-50"
           >
-            <SelectTrigger className="w-[250px]">
-              <SelectValue placeholder={"Pick a school"} />
-            </SelectTrigger>
-
-            <SelectContent>
-              {[
-                "Abjuration",
-                "Conjuration",
-                "Divination",
-                "Enchantment",
-                "Evocation",
-                "Illusion",
-                "Necromancy",
-                "Transmutation",
-              ].map((school) => (
-                <SelectItem value={school.toLowerCase()} key={school}>
-                  {school}
-                </SelectItem>
-              ))}
-            </SelectContent>
-          </Select>
+            <option value="" aria-placeholder="No school selected"></option>
+            {SCHOOLS.map((school) => (
+              <option value={school.toLowerCase()} key={school}>
+                {school}
+              </option>
+            ))}
+          </select>
           <Button
             variant={"secondary"}
+            size={"sm"}
             onClick={() => dispatchFilter({ type: ActionTypeEnum.REMOVE, fieldName: "school" })}
             disabled={filter.school === ""}
           >
-            <Trash size={20} />
+            <FilterX size={20} />
           </Button>
         </div>
       </div>
-
-      <Button
-        variant={"destructive"}
-        onClick={() => dispatchFilter({ type: ActionFullReset })}
-        disabled={filterIsEmpty(filter)}
-        className="relative left-1/2 m-2 -translate-x-1/2 transform"
-      >
-        {`Reset Filters`}
-      </Button>
 
       {isFetching || spells.length ? (
         <div className="mt-2 grid gap-2 lg:grid-cols-2">
           {spells.length ? spells.map((s) => <SpellCard key={s.name} spell={s} />) : <SpellCardSkeleton />}
         </div>
       ) : !filterIsEmpty(filter) ? (
-        <p className="mt-4 text-center text-xl">{`No spells found.`}</p>
+        <div className="mt-4 rounded-md border border-secondary p-4 text-center text-xl">{`No spells found.`}</div>
       ) : null}
     </>
   );
