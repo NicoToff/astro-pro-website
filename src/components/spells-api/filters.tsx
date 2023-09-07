@@ -67,7 +67,7 @@ export function SearchFilters({
         placeholder="Search by name..."
       />
 
-      <div className="flex flex-wrap justify-evenly">
+      <div className="flex flex-wrap justify-end md:justify-evenly">
         <div className="m-2 flex items-center space-x-2">
           <Label htmlFor={"level" satisfies SearchStateKey} className="font-bold">
             {`Level`}

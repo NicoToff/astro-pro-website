@@ -40,7 +40,8 @@ export function ControlledSelect({
           // On mobile, the list of options is not spread out, there is only one line stating "X selected"
           cn(
             multiple && !isOnMobile ? "h-20" : "h-10",
-            "w-fit rounded-md border border-input bg-background px-3 py-2 text-sm ring-offset-background focus:outline-none focus:ring-2 focus:ring-ring focus:ring-offset-2 disabled:cursor-not-allowed disabled:opacity-50"
+            isOnMobile ? "w-44" : "w-fit",
+            "rounded-md border border-input bg-background px-3 py-2 text-sm ring-offset-background focus:outline-none focus:ring-2 focus:ring-ring focus:ring-offset-2 disabled:cursor-not-allowed disabled:opacity-50"
           )
         }
         multiple={multiple}
