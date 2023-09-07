@@ -1,9 +1,10 @@
-import { useEffect } from "react";
+import { useEffect, type EffectCallback } from "react";
 
-export function useOnMount(fn: () => void) {
+export type UseOnMountOpts = { cleanup?: ReturnType<EffectCallback> };
+export function useOnMount(effect: EffectCallback, { cleanup }: UseOnMountOpts = {}) {
   if (typeof window === "undefined") return;
-
   useEffect(() => {
-    fn();
-  }, []);
+    effect();
+    return cleanup;
+  }, [effect, cleanup]);
 }

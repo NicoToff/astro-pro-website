@@ -54,3 +54,14 @@ export const arrayFields = Object.entries(initialSearchState).reduce((acc, [k, v
   }
   return acc;
 }, [] as string[]);
+
+export const MOBILE_AGENT_TAGS = [
+  "iphone",
+  "ipad",
+  "android",
+  "mobile",
+  "miuibrowser",
+  "tablet",
+  "webos",
+  "blackberry",
+] as const;

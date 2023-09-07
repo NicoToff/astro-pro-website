@@ -1,3 +1,6 @@
+import { useState } from "react";
+import { useOnMount } from "../hooks/use-on-mount.ts";
+
 import { FilterX } from "lucide-react";
 
 import { Input } from "@/shadcn/ui/input";
@@ -8,7 +11,7 @@ import { SearchInput } from "./search-input.tsx";
 import { ControlledSelect } from "./controlled-select.tsx";
 import { ControlledCheckbox } from "./controlled-checkbox.tsx";
 
-import { SCHOOLS, SOURCES, COMPONENTS } from "./constants.ts";
+import { SCHOOLS, SOURCES, COMPONENTS, MOBILE_AGENT_TAGS } from "./constants.ts";
 import { filterIsEmpty } from "./helpers.ts";
 
 import type { SearchStateKey, SearchStateArrayField, SearchStateStringField, SearchState } from "./types.ts";
@@ -22,6 +25,7 @@ export type SearchFiltersProps = {
   onSelectChange: (e: React.ChangeEvent<HTMLSelectElement>, fieldName: SearchStateKey) => void;
   clearField: (fieldName: SearchStateKey) => void;
   clearFilters: () => void;
+  isOnMobile?: boolean;
 };
 
 export function SearchFilters({
@@ -33,6 +37,14 @@ export function SearchFilters({
   clearField,
   clearFilters,
 }: SearchFiltersProps) {
+  const [isOnMobile, setIsOnMobile] = useState(false);
+  useOnMount(() => {
+    if (!window.navigator) return;
+    const userAgent = window.navigator.userAgent.toLowerCase();
+    const isMobile = MOBILE_AGENT_TAGS.some((tag) => userAgent.includes(tag));
+    if (isMobile) setIsOnMobile(true);
+  });
+
   return (
     <>
       <div className="flex flex-row-reverse">
@@ -106,6 +118,7 @@ export function SearchFilters({
             onSelectChange={(e) => onSelectChange(e, fieldName)}
             onResetClick={() => clearField(fieldName)}
             multiple
+            isOnMobile={isOnMobile}
           />
         ))}
       </div>
