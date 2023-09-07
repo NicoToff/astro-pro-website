@@ -6,5 +6,5 @@ export function useOnMount(effect: EffectCallback, { cleanup }: UseOnMountOpts =
   useEffect(() => {
     effect();
     return cleanup;
-  }, [effect, cleanup]);
+  }, []);
 }
