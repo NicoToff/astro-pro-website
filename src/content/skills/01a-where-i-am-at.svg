@@ -42,15 +42,15 @@
         <text x="12.815994262695312" y="0"
             font-family="Roboto, Trebuchet MS, system-ui"
             font-size="36px"
-            fill="#d9480f" text-anchor="middle" style="white-space: pre;" direction="ltr"
+            fill="#e8590c" text-anchor="middle" style="white-space: pre;" direction="ltr"
             dominant-baseline="text-before-edge">2</text>
     </g>
     <g transform="translate(645.748526312891 221.2791221813959) rotate(0 12.383995056152344 22.5)">
         <text x="12.383995056152344" y="0"
             font-family="Roboto, Trebuchet MS, system-ui"
             font-size="36px"
-            fill="#000000" text-anchor="middle" style="white-space: pre;" direction="ltr"
-            dominant-baseline="text-before-edge">0</text>
+            fill="#e8590c" text-anchor="middle" style="white-space: pre;" direction="ltr"
+            dominant-baseline="text-before-edge">2</text>
     </g>
     <g transform="translate(728.3955779927874 220.2791221813959) rotate(0 4.877998352050781 22.5)">
         <text x="4.877998352050781" y="0"

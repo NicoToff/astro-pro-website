@@ -12,9 +12,9 @@ technologies: [TypeScript, Next.js, React, MySQL, MUI, Chart.js, VSCode]
 
 ## Context
 
-During the summer 2022, the Quality Department at my school (HELHa) needed a convenient web tool to browse and display data collected from yearly surveys. Before this tool, analysing data for a given year was tedious at best, and it was completely impossible to compare results over time. The hardest part of this project was to create a usable relational schema to store the data.
+During the summer 2022, the Quality Department at my school (HELHa) needed a convenient web tool to browse and display data collected from yearly surveys. Before this tool, analysing data from Excel files for a given year was tedious at best, and it was completely impossible to compare results over time. The hardest part of this project was to create a usable relational schema to store the data, as the Excel files were not consistent over the years.
 
-## Tasks
+## Accomplishments
 
 - Create a viable schema for the data
 - Build a web UI to upload data and display it in charts

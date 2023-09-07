@@ -13,7 +13,7 @@ projectUrl: https://mtg-fast.com/
 
 Many great tools already exist for browsing the _Magic: the Gathering_ card collection (around 30,000 cards). However, none of them offered the features I was looking for, including search-as-you-type capabilities, typo tolerance, specific advanced search fields, and accurate European pricing information. With my newly acquired web development skills, I started building a web experience that solved my problems.
 
-## Tasks
+## Accomplishments
 
 - Adapt an existing e-commerce template to my specific needs
 - Integrate Typesense as a search engine

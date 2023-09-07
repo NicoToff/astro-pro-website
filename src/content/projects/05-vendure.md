@@ -11,9 +11,9 @@ technologies:
 
 ## Context
 
-Mirahi, a web agency in Brussels, needed to assess the viability of Vendure, a NestJS-based e-commerce framework, to deal with food products orders. I was tasked with creating a fullstack proof of concept using modern headless technologies.
+Mirahi, a web agency in Brussels, welcomed me for a 4-month internship in early 2023. My mentor needed to assess the viability of Vendure, a NestJS-based headless e-commerce framework, to deal with food product orders. I was tasked with creating a fullstack proof of concept using modern  technologies.
 
-## Tasks
+## Accomplishments
 
 - Create a Vendure plugin (NestJS module) to use Adyen as a payment provider
 - Wireframe, then build a storefront using Next.js and Tailwind

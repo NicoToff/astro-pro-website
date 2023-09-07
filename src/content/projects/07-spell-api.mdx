@@ -13,16 +13,19 @@ import { Search } from "@/components/spells-api/search";
 
 ## Context
 
-To hone my back end skills, I decided to build a REST API to fetch data from my homebrew D&D 5e spell list. NestJS seemed like a great fit for this use case after my previous experience with it and the reliability it provides.
+To hone my backend skills, I decided to build a REST API to fetch data from my homebrew D&D 5e spell list. NestJS seemed like a great fit for this use case after my previous experience with it and the reliability it provides.
 
-This project is later going to be consumed by a frontend website for my players to search. For early testing purposes, the database was a SQLite file with which I interacted using TypeORM. I find the concept of SQLite incredible: your database is reduces to its most simple form and doesn't even require a server! Later on, I switched to a MongoDB database hosted on Atlas because I wanted a more flexible schema and the ability to store more complex data in a single field. I used mongoose to interact with the database and create a strict document schema.
+For early testing purposes, the database was a SQLite file with which I interacted using TypeORM. I find the concept of SQLite incredible: your database is reduced to its most simple form and doesn't even require a server! Later on, I switched to a MongoDB database hosted on Atlas because I wanted a more flexible schema and the ability to store more complex data in a single field. I am using mongoose to interact with the database and create a strict document schema.
 
 I also used Swagger to document the API and make it OpenAPI compliant.
 
 The API is deployed on Fly.io using Docker.
 
+### Try it yourself!
 
-## Tasks
+You can view the Swagger documentation, but I also built a UI to consume this API: [dedicated search page](/projects/dnd-spell-api/search). Please admire the best-in-class UX experience I created for this page.
+
+## Accomplishments
 
 - Start a NestJS project from scratch
 - Create a simple schema for the data
@@ -32,8 +35,5 @@ The API is deployed on Fly.io using Docker.
 - Move data from SQLite to MongoDB Atlas
 - Create React components to consume the API
 
-### Try it yourself!
-
-Go to the [dedicated search page](/projects/dnd-spell-api/search) to consume the API yourself!
 
 ### API Documentation

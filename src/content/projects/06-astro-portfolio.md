@@ -15,10 +15,10 @@ repo: https://github.com/NicoToff/astro-pro-website
 
 Back in June 2022, I built a rudimentary portfolio website using Express.js, EJS and Bootstrap. It was a great learning experience, but the hosting provider I used (Heroku) stopped being free for its Hobby tier. As any reasonable developer would do, I refused to pay a single dime, let my account die and rebuilt the entire thing using Astro in August 2023. Apart from a few minor bugs in dev environment, using Astro was an absolute pleasure.
 
-## Tasks
+## Accomplishments
 
 - Learn how Astro components work
-- Learn how to use React component with Astro
+- Learn how to use React components with Astro
 - Create a simple design using Tailwind
 - Enjoy the battle-tested components built by [shadcn](https://ui.shadcn.com/)
 - Organise all the content to be handled in markdown files

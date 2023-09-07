@@ -3,4 +3,4 @@ title: Work in progress
 image: "/images/man-at-work.svg"
 ---
 
-This page is still under construction. Please come back later for more content!
+There are a ton more things I love and want to talk about, come back here later for more content!
