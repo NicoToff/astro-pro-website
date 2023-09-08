@@ -50,7 +50,11 @@ export function ControlledSelect({
       >
         {
           // No need for an empty option when users can just unselect all options
-          !multiple ? <option value="" aria-placeholder={`No ${fieldName} selected`}></option> : null
+          !multiple ? (
+            <option value="" aria-placeholder={`No ${fieldName} selected`}>
+              {"(all)"}
+            </option>
+          ) : null
         }
         {options.map((opt) => (
           <option value={opt.toLowerCase()} key={opt}>
