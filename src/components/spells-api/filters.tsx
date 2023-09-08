@@ -59,13 +59,17 @@ export function SearchFilters({
         </Button>
       </div>
 
-      <SearchInput
-        isLoading={isFetching}
-        value={filter.name}
-        name={"name" satisfies SearchStateKey}
-        onChange={onChange}
-        placeholder="Search by name..."
-      />
+      <div className="flex flex-col">
+        <Label htmlFor="search-input" className="text-md ml-2">{`Search`}</Label>
+        <SearchInput
+          id="search-input"
+          isLoading={isFetching}
+          value={filter.name}
+          name={"name" satisfies SearchStateKey}
+          onChange={onChange}
+          placeholder="Search by name..."
+        />
+      </div>
 
       <div className="grid grid-cols-2 lg:grid-cols-3 lg:place-items-center">
         <ControlledSelect
@@ -80,9 +84,7 @@ export function SearchFilters({
         />
 
         <div className="m-2 flex items-center space-x-2">
-          <Label htmlFor={"level" satisfies SearchStateKey} className="font-bold">
-            {`Level`}
-          </Label>
+          <Label htmlFor={"level" satisfies SearchStateKey}>{`Level`}</Label>
           <Input
             type="number"
             value={filter.level}

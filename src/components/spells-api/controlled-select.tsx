@@ -30,9 +30,7 @@ export function ControlledSelect({
 
   return (
     <div className={cn("m-2 flex items-center space-x-2", className)}>
-      <Label htmlFor={fieldName} className="font-bold">
-        {label}
-      </Label>
+      <Label htmlFor={fieldName}>{label}</Label>
       <select
         value={value}
         id={fieldName}

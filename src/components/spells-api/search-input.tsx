@@ -12,7 +12,7 @@ export interface SearchInputProps extends InputProps {
 }
 
 const SearchInput = forwardRef<HTMLInputElement, SearchInputProps>(
-  ({ className, icon, iconPlacement = "left", isLoading, inputClassName, iconDivClassName, ...props }, ref) => {
+  ({ className, icon, iconPlacement = "left", isLoading, inputClassName, iconDivClassName, id, ...props }, ref) => {
     if (!icon) icon = <Search size={24} />;
     if (isLoading) icon = <Disc3 className="animate-spin" size={24} />;
     return (
@@ -20,6 +20,7 @@ const SearchInput = forwardRef<HTMLInputElement, SearchInputProps>(
         <Input
           ref={ref}
           className={cn("text-md", iconPlacement === "right" ? "pr-10" : "pl-10", inputClassName)}
+          id={id}
           {...props}
         />
         <div
