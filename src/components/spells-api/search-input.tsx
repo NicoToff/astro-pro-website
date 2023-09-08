@@ -17,7 +17,11 @@ const SearchInput = forwardRef<HTMLInputElement, SearchInputProps>(
     if (isLoading) icon = <Disc3 className="animate-spin" size={24} />;
     return (
       <div className={cn("relative", className)}>
-        <Input ref={ref} className={cn(iconPlacement === "right" ? "pr-10" : "pl-10", inputClassName)} {...props} />
+        <Input
+          ref={ref}
+          className={cn("text-md", iconPlacement === "right" ? "pr-10" : "pl-10", inputClassName)}
+          {...props}
+        />
         <div
           className={cn(
             "pointer-events-none absolute inset-y-0 flex items-center",

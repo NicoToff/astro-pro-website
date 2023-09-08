@@ -3,7 +3,7 @@ import Page from "@/layouts/Page.astro";
 import { Search } from "@/components/spells-api/search";
 ---
 
-<Page title={`NicoToff | Projects`} description="All projects built by Nicolas Toffolo">
+<Page class="overflow-y-scroll" title={`NicoToff | Projects`} description="All projects built by Nicolas Toffolo">
   <h1 class="text-4xl font-bold">Search D&D 5e Spells API</h1>
   <Search client:load url="https://nestjs-spells-api.fly.dev/spells" />
 </Page>

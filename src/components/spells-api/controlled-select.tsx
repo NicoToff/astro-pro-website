@@ -13,7 +13,8 @@ export type SelectProps = {
   options: string[] | readonly string[];
   onSelectChange: ChangeEventHandler<HTMLSelectElement>;
   onResetClick: MouseEventHandler<HTMLButtonElement>;
-  isOnMobile?: boolean;
+  isOnMobile: boolean;
+  className?: string;
 } & (SingleSelect | MultiSelect);
 export function ControlledSelect({
   fieldName,
@@ -21,13 +22,14 @@ export function ControlledSelect({
   options,
   onSelectChange,
   onResetClick,
-  isOnMobile = false,
+  isOnMobile,
+  className,
   multiple = false,
 }: SelectProps) {
   const label = fieldName.charAt(0).toUpperCase() + fieldName.slice(1);
 
   return (
-    <div className="m-2 flex items-center space-x-2">
+    <div className={cn("m-2 flex items-center space-x-2", className)}>
       <Label htmlFor={fieldName} className="font-bold">
         {label}
       </Label>
@@ -39,8 +41,8 @@ export function ControlledSelect({
         className={
           // On mobile, the list of options is not spread out, there is only one line stating "X selected"
           cn(
-            multiple && !isOnMobile ? "h-20" : "h-10",
             isOnMobile ? "w-44" : "w-fit",
+            determineHeight(isOnMobile, multiple, options.length),
             "rounded-md border border-input bg-background px-3 py-2 text-sm ring-offset-background focus:outline-none focus:ring-2 focus:ring-ring focus:ring-offset-2 disabled:cursor-not-allowed disabled:opacity-50"
           )
         }
@@ -57,6 +59,7 @@ export function ControlledSelect({
         ))}
       </select>
       <Button
+        className="hidden sm:block"
         variant={"secondary"}
         size={"sm"}
         onClick={onResetClick}
@@ -66,4 +69,15 @@ export function ControlledSelect({
       </Button>
     </div>
   );
+}
+
+function determineHeight(isOnMobile: boolean, multiple: boolean, optionsLength: number) {
+  switch (true) {
+    case !isOnMobile && multiple && optionsLength <= 3:
+      return "h-20";
+    case !isOnMobile && multiple && optionsLength > 3:
+      return "h-72";
+    default:
+      return "h-10";
+  }
 }

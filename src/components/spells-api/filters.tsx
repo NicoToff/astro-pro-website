@@ -67,7 +67,18 @@ export function SearchFilters({
         placeholder="Search by name..."
       />
 
-      <div className="flex flex-wrap justify-end md:justify-evenly">
+      <div className="grid grid-cols-2 lg:grid-cols-3 lg:place-items-center">
+        <ControlledSelect
+          className="row-span-4 lg:row-span-2"
+          fieldName={"sources" satisfies SearchStateArrayField}
+          value={filter.sources}
+          options={SOURCES}
+          onSelectChange={(e) => onSelectChange(e, "sources")}
+          onResetClick={() => clearField("sources")}
+          isOnMobile={isOnMobile}
+          multiple
+        />
+
         <div className="m-2 flex items-center space-x-2">
           <Label htmlFor={"level" satisfies SearchStateKey} className="font-bold">
             {`Level`}
@@ -84,6 +95,15 @@ export function SearchFilters({
           />
         </div>
 
+        <ControlledSelect
+          fieldName={"school" satisfies SearchStateKey}
+          value={filter.school}
+          options={SCHOOLS}
+          onSelectChange={(e) => onSelectChange(e, "school" satisfies SearchStateKey)}
+          onResetClick={() => clearField("school" satisfies SearchStateKey)}
+          isOnMobile={isOnMobile}
+        />
+
         <div className="flex">
           {[
             { fieldName: "concentration" as SearchStateStringField },
@@ -99,28 +119,14 @@ export function SearchFilters({
         </div>
 
         <ControlledSelect
-          fieldName={"school" satisfies SearchStateKey}
-          value={filter.school}
-          options={SCHOOLS}
-          onSelectChange={(e) => onSelectChange(e, "school" satisfies SearchStateKey)}
-          onResetClick={() => clearField("school" satisfies SearchStateKey)}
+          fieldName={"components" satisfies SearchStateArrayField}
+          value={filter.components}
+          options={COMPONENTS}
+          onSelectChange={(e) => onSelectChange(e, "components")}
+          onResetClick={() => clearField("components")}
+          isOnMobile={isOnMobile}
+          multiple
         />
-
-        {[
-          { fieldName: "sources" as SearchStateArrayField, options: SOURCES },
-          { fieldName: "components" as SearchStateArrayField, options: COMPONENTS },
-        ].map(({ fieldName, options }) => (
-          <ControlledSelect
-            key={fieldName}
-            fieldName={fieldName}
-            value={filter[fieldName]}
-            options={options}
-            onSelectChange={(e) => onSelectChange(e, fieldName)}
-            onResetClick={() => clearField(fieldName)}
-            multiple
-            isOnMobile={isOnMobile}
-          />
-        ))}
       </div>
     </>
   );
