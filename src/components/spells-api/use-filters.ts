@@ -15,6 +15,7 @@ export function useFilters<T>({ url, setResult }: UseFiltersArgs<T>) {
   const isFirstRender = useRef(true);
   const [filter, dispatchFilter] = useReducer(searchReducer, structuredClone(initialSearchState));
   const [isFetching, setIsFetching] = useState(false);
+  const [isError, setIsError] = useState(false);
 
   function onChange(e: ChangeEvent<HTMLInputElement>) {
     setIsFetching(true);
@@ -58,6 +59,7 @@ export function useFilters<T>({ url, setResult }: UseFiltersArgs<T>) {
   });
 
   useEffect(() => {
+    setIsError(false);
     if (isFirstRender.current === true) {
       isFirstRender.current = false;
       return;
@@ -80,6 +82,7 @@ export function useFilters<T>({ url, setResult }: UseFiltersArgs<T>) {
         .then((spells) => setResult(spells))
         .catch((err) => {
           console.error(err);
+          setIsError(true);
           setResult([]);
         })
         .finally(() => setIsFetching(false));
@@ -94,6 +97,7 @@ export function useFilters<T>({ url, setResult }: UseFiltersArgs<T>) {
     onCheckedChange,
     onSelectChange,
     isFetching,
+    isError,
     clearField,
     clearFilters: () => dispatchFilter({ type: ActionEnum.FULL_RESET }),
   };

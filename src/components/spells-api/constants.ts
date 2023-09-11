@@ -46,6 +46,7 @@ export const initialSearchState = {
   group: "" as string,
   sources: [] as string[],
   components: [] as string[],
+  damageTypes: [] as string[],
 } as const;
 
 export const arrayFields = Object.entries(structuredClone(initialSearchState)).reduce((acc, [k, v]) => {
@@ -54,6 +55,22 @@ export const arrayFields = Object.entries(structuredClone(initialSearchState)).r
   }
   return acc;
 }, [] as string[]);
+
+export const DAMAGE_TYPES = [
+  "bludgeoning",
+  "piercing",
+  "slashing",
+  "acid",
+  "cold",
+  "fire",
+  "force",
+  "lightning",
+  "necrotic",
+  "poison",
+  "psychic",
+  "radiant",
+  "thunder",
+] as const;
 
 export const MOBILE_AGENT_TAGS = [
   "iphone",

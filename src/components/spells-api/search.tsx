@@ -2,7 +2,7 @@ import { useState } from "react";
 import { useFilters } from "./use-filters.ts";
 
 import { SearchResults } from "./search-results.tsx";
-import { SearchFilters } from "./filters.tsx";
+import { SearchFilters } from "./search-filters.tsx";
 
 import type { Spell } from "@/types/spell.ts";
 

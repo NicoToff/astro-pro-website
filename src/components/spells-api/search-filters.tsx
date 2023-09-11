@@ -11,7 +11,7 @@ import { SearchInput } from "./search-input.tsx";
 import { ControlledSelect } from "./controlled-select.tsx";
 import { ControlledCheckbox } from "./controlled-checkbox.tsx";
 
-import { SCHOOLS, SOURCES, COMPONENTS, MOBILE_AGENT_TAGS } from "./constants.ts";
+import { SCHOOLS, SOURCES, COMPONENTS, MOBILE_AGENT_TAGS, DAMAGE_TYPES } from "./constants.ts";
 import { filterIsEmpty } from "./helpers.ts";
 
 import type { SearchStateKey, SearchStateArrayField, SearchStateStringField, SearchState } from "./types.ts";
@@ -126,6 +126,16 @@ export function SearchFilters({
           options={COMPONENTS}
           onSelectChange={(e) => onSelectChange(e, "components")}
           onResetClick={() => clearField("components")}
+          isOnMobile={isOnMobile}
+          multiple
+        />
+
+        <ControlledSelect
+          fieldName={"damageTypes" satisfies SearchStateArrayField}
+          value={filter.damageTypes}
+          options={DAMAGE_TYPES}
+          onSelectChange={(e) => onSelectChange(e, "damageTypes")}
+          onResetClick={() => clearField("damageTypes")}
           isOnMobile={isOnMobile}
           multiple
         />

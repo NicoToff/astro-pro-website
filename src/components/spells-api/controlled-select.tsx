@@ -26,7 +26,7 @@ export function ControlledSelect({
   className,
   multiple = false,
 }: SelectProps) {
-  const label = fieldName.charAt(0).toUpperCase() + fieldName.slice(1);
+  const label = camelCaseToWords(fieldName);
 
   return (
     <div className={cn("m-2 flex items-center space-x-2", className)}>
@@ -56,7 +56,7 @@ export function ControlledSelect({
         }
         {options.map((opt) => (
           <option value={opt.toLowerCase()} key={opt}>
-            {opt}
+            {camelCaseToWords(opt)}
           </option>
         ))}
       </select>
@@ -82,4 +82,9 @@ function determineHeight(isOnMobile: boolean, multiple: boolean, optionsLength: 
     default:
       return "h-10";
   }
+}
+
+function camelCaseToWords(s: string) {
+  const result = s.replace(/([A-Z])/g, " $1");
+  return result.charAt(0).toUpperCase() + result.slice(1);
 }
