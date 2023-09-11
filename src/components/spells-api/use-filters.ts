@@ -1,12 +1,11 @@
 import { useEffect, useState, useReducer, useRef, type ChangeEvent, type Dispatch, type SetStateAction } from "react";
 
 import { searchReducer } from "./reducer";
-import { ActionEnum, arrayFields, initialSearchState } from "./constants";
-import type { SearchState, SearchStateArrayField, SearchStateKey, SearchStateStringField } from "./types";
-import type { CheckedState } from "@radix-ui/react-checkbox";
-import { filterIsEmpty, stringifyArrayFields, updateBrowserHistory } from "./helpers";
-import type { Writeable } from "@/types/helpers";
+import { ActionEnum, initialSearchState } from "./constants";
 import { useOnMount } from "../hooks/use-on-mount";
+import { filterIsEmpty, getURLSearchParams, parseQueryString, purgeEmptyFields, updateBrowserHistory } from "./helpers";
+import type { SearchStateKey } from "./types";
+import type { CheckedState } from "@radix-ui/react-checkbox";
 
 export type UseFiltersArgs<T> = {
   url: string;
@@ -14,7 +13,7 @@ export type UseFiltersArgs<T> = {
 };
 export function useFilters<T>({ url, setResult }: UseFiltersArgs<T>) {
   const isFirstRender = useRef(true);
-  const [filter, dispatchFilter] = useReducer(searchReducer, { ...initialSearchState });
+  const [filter, dispatchFilter] = useReducer(searchReducer, structuredClone(initialSearchState));
   const [isFetching, setIsFetching] = useState(false);
 
   function onChange(e: ChangeEvent<HTMLInputElement>) {
@@ -51,18 +50,7 @@ export function useFilters<T>({ url, setResult }: UseFiltersArgs<T>) {
   }
 
   useOnMount(() => {
-    const params = new URLSearchParams(window.location.search);
-    const initValue = { ...initialSearchState } as Writeable<SearchState>;
-    for (const key of Object.keys(initValue)) {
-      const value = params.get(key);
-      if (value) {
-        if (arrayFields.includes(key as SearchStateArrayField)) {
-          initValue[key as SearchStateArrayField] = value.split(",");
-          continue;
-        }
-        initValue[key as SearchStateStringField] = value;
-      }
-    }
+    const initValue = parseQueryString(window.location.search);
     if (!filterIsEmpty(initValue)) {
       dispatchFilter({ type: ActionEnum.INIT, initValue });
       setIsFetching(true);
@@ -83,9 +71,9 @@ export function useFilters<T>({ url, setResult }: UseFiltersArgs<T>) {
     }
 
     const timeoutId = setTimeout(() => {
-      const leanFilter = Object.entries(stringifyArrayFields(filter)).filter(([, v]) => v !== "");
-      const params = new URLSearchParams(leanFilter).toString();
-      updateBrowserHistory(params);
+      const leanFilter = purgeEmptyFields(filter);
+      const params = getURLSearchParams(leanFilter);
+      updateBrowserHistory(params.toString());
 
       fetch(`${url}?${params}`)
         .then((res) => res.json() as Promise<T[]>)

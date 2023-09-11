@@ -7,7 +7,7 @@ import type { Spell } from "@/types/spell";
 export type SpellCardProps = { spell: Spell; className?: string };
 export function SpellCard({ spell, className }: SpellCardProps) {
   return (
-    <Card className={cn("not-prose flex flex-col justify-between", className)}>
+    <Card className={cn("not-prose flex flex-col", className)}>
       <CardHeader>
         <CardTitle>{formatName(spell)}</CardTitle>
         <CardDescription>
@@ -23,15 +23,17 @@ export function SpellCard({ spell, className }: SpellCardProps) {
           </ul>
         </CardDescription>
       </CardHeader>
-      <CardContent className="flex flex-col gap-2">
-        {spell.flavor ? <p className="mb-2 border-l-2 pl-2 font-serif text-sm italic">{spell.flavor}</p> : null}
+      <CardContent className={"flex flex-col gap-2"}>
+        {spell.flavor ? <p className="mb-2 mt-auto border-l-2 pl-2 font-serif text-sm italic">{spell.flavor}</p> : null}
         {spell.description.map((desc, i) => (
           <p key={i}>{desc}</p>
         ))}
         {spell.atHigherLevels ? <Upgrade label="At Higher Levels" value={spell.atHigherLevels} /> : null}
         {spell.cantripUpgrade ? <Upgrade label="Cantrip Upgrade" value={spell.cantripUpgrade} /> : null}
       </CardContent>
-      <CardFooter className="text-sm text-muted-foreground">{`Sources: ${spell.sources.join(", ")}`}</CardFooter>
+      <CardFooter className="mt-auto text-sm text-muted-foreground">{`Sources: ${spell.sources.join(
+        ", "
+      )}`}</CardFooter>
     </Card>
   );
 }

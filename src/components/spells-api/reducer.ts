@@ -37,7 +37,7 @@ export function searchReducer(state: SearchState, action: Action) {
       return { ...state, [action.fieldName]: "" };
     }
     case ActionEnum.FULL_RESET:
-      return { ...initialSearchState };
+      return structuredClone(initialSearchState);
     default:
       return state;
   }

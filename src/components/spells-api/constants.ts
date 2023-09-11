@@ -48,7 +48,7 @@ export const initialSearchState = {
   components: [] as string[],
 } as const;
 
-export const arrayFields = Object.entries(initialSearchState).reduce((acc, [k, v]) => {
+export const arrayFields = Object.entries(structuredClone(initialSearchState)).reduce((acc, [k, v]) => {
   if (Array.isArray(v)) {
     acc.push(k);
   }
