@@ -2,6 +2,7 @@ import { useState } from "react";
 import { useOnMount } from "../hooks/use-on-mount.ts";
 
 import { FilterX } from "lucide-react";
+import { SCHOOLS, SOURCES, COMPONENTS, DAMAGE_TYPES } from "dnd-home-utils";
 
 import { Input } from "@/shadcn/ui/input";
 import { Label } from "@/shadcn/ui/label";
@@ -11,7 +12,7 @@ import { SearchInput } from "./search-input.tsx";
 import { ControlledSelect } from "./controlled-select.tsx";
 import { ControlledCheckbox } from "./controlled-checkbox.tsx";
 
-import { SCHOOLS, SOURCES, COMPONENTS, MOBILE_AGENT_TAGS, DAMAGE_TYPES } from "./constants.ts";
+import { MOBILE_AGENT_TAGS } from "./constants";
 import { filterIsEmpty } from "./helpers.ts";
 
 import type { SearchStateKey, SearchStateArrayField, SearchStateStringField, SearchState } from "./types.ts";

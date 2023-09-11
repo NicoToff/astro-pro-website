@@ -1,35 +1,3 @@
-export const SCHOOLS = [
-  "Abjuration",
-  "Conjuration",
-  "Divination",
-  "Enchantment",
-  "Evocation",
-  "Illusion",
-  "Necromancy",
-  "Transmutation",
-] as const;
-
-export const COMPONENTS = ["V", "S", "M"] as const;
-
-export const SOURCES = [
-  "Arcane",
-  "Divine",
-  "Primal",
-  "Artificer",
-  "Barbarian",
-  "Bard",
-  "Cleric",
-  "Druid",
-  "Fighter",
-  "Monk",
-  "Paladin",
-  "Ranger",
-  "Rogue",
-  "Sorcerer",
-  "Warlock",
-  "Wizard",
-] as const;
-
 export const ActionEnum = {
   INIT: "init",
   UPDATE: "updateField",
@@ -55,22 +23,6 @@ export const arrayFields = Object.entries(structuredClone(initialSearchState)).r
   }
   return acc;
 }, [] as string[]);
-
-export const DAMAGE_TYPES = [
-  "bludgeoning",
-  "piercing",
-  "slashing",
-  "acid",
-  "cold",
-  "fire",
-  "force",
-  "lightning",
-  "necrotic",
-  "poison",
-  "psychic",
-  "radiant",
-  "thunder",
-] as const;
 
 export const MOBILE_AGENT_TAGS = [
   "iphone",

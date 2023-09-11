@@ -24,6 +24,7 @@
     "astro": "^3.0.12",
     "class-variance-authority": "^0.7.0",
     "clsx": "^2.0.0",
+    "dnd-home-utils": "^0.0.3",
     "lucide-react": "^0.274.0",
     "react": "^18.2.0",
     "react-dom": "^18.2.0",
