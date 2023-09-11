@@ -24,27 +24,35 @@ export function setColorThemeOnPageLoad() {
   const html = document.documentElement;
   if (!html) throw new Error("No <html> element found");
   const theme = localStorage.getItem("color-theme");
-  const userPrefersDark = window.matchMedia && window.matchMedia("(prefers-color-scheme: dark)").matches;
-  const isDark = userPrefersDark || theme === "dark";
-  if (isDark) {
-    html.classList.toggle("dark");
-    localStorage.setItem("color-theme", "dark");
-  } else {
-    localStorage.removeItem("color-theme");
+  if (theme && (theme === "dark" || theme === "light")) {
+    theme === "dark" ? html.classList.add("dark") : html.classList.remove("dark");
+    setSwitchButtonText(theme);
+    showRelevantImage(theme);
+    return;
   }
-  const currentTheme = isDark ? "dark" : "light";
-  setSwitchButtonText(currentTheme);
-  showRelevantImage(currentTheme);
+  const userPrefersDark = window.matchMedia && window.matchMedia("(prefers-color-scheme: dark)").matches;
+  const userPrefersLight = window.matchMedia && window.matchMedia("(prefers-color-scheme: light)").matches;
+  if (userPrefersDark) {
+    setColorTheme("dark");
+  } else if (userPrefersLight) {
+    setColorTheme("light");
+  }
+}
+
+export function setColorTheme(theme: "light" | "dark") {
+  const html = document.documentElement;
+  if (!html) throw new Error("No <html> element found");
+  theme === "dark" ? html.classList.add("dark") : html.classList.remove("dark");
+  localStorage.setItem("color-theme", theme);
+  setSwitchButtonText(theme);
+  showRelevantImage(theme);
 }
 
 export function switchColorTheme() {
   const html = document.documentElement;
   if (!html) throw new Error("No <html> element found");
-  html.classList.toggle("dark");
-  const theme = html.classList.contains("dark") ? "dark" : "light";
-  theme === "dark" ? localStorage.setItem("color-theme", "dark") : localStorage.removeItem("color-theme");
-  setSwitchButtonText(theme);
-  showRelevantImage(theme);
+  const newTheme = html.classList.contains("dark") ? "light" : "dark";
+  setColorTheme(newTheme);
 }
 
 function showRelevantImage(theme: "light" | "dark") {
