@@ -71,7 +71,7 @@ export function SearchFilters({
         />
       </div>
 
-      <div className="grid grid-cols-2 lg:grid-cols-3 lg:place-items-center">
+      <div className="grid grid-cols-1 place-items-end sm:grid-cols-2 sm:place-items-start lg:grid-cols-3 lg:place-items-center">
         <ControlledSelect
           className="row-span-4 lg:row-span-2"
           fieldName={"sources" satisfies SearchStateArrayField}
