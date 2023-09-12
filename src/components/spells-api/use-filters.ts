@@ -3,8 +3,14 @@ import { useEffect, useState, useReducer, useRef, type ChangeEvent, type Dispatc
 import { searchReducer } from "./reducer";
 import { ActionEnum, initialSearchState } from "./constants";
 import { useOnMount } from "../hooks/use-on-mount";
-import { filterIsEmpty, getURLSearchParams, parseQueryString, purgeEmptyFields, updateBrowserHistory } from "./helpers";
-import type { SearchStateKey } from "./types";
+import {
+  filterIsEmpty,
+  makeURLSearchParams,
+  parseQueryString,
+  deepPurgeEmptyFields,
+  updateBrowserHistory,
+} from "./helpers";
+import type { SearchStateKey, SearchStateObjectField } from "./types";
 import type { CheckedState } from "@radix-ui/react-checkbox";
 
 export type UseFiltersArgs<T> = {
@@ -40,6 +46,11 @@ export function useFilters<T>({ url, setResult }: UseFiltersArgs<T>) {
     }
   }
 
+  function onArrayCheckedChange(e: CheckedState, fieldName: SearchStateObjectField, subFieldName: string) {
+    setIsFetching(true);
+    dispatchFilter({ type: ActionEnum.UPDATE_OBJECT_FIELD, fieldName, subFieldName, value: Boolean(e) });
+  }
+
   function onSelectChange(e: ChangeEvent<HTMLSelectElement>, fieldName: SearchStateKey) {
     setIsFetching(true);
     dispatchFilter({ type: ActionEnum.UPDATE, fieldName, value: e.target.value });
@@ -73,8 +84,8 @@ export function useFilters<T>({ url, setResult }: UseFiltersArgs<T>) {
     }
 
     const timeoutId = setTimeout(() => {
-      const leanFilter = purgeEmptyFields(filter);
-      const params = getURLSearchParams(leanFilter);
+      const leanFilter = deepPurgeEmptyFields(filter);
+      const params = makeURLSearchParams(leanFilter);
       updateBrowserHistory(params.toString());
 
       fetch(`${url}?${params}`)
@@ -96,6 +107,7 @@ export function useFilters<T>({ url, setResult }: UseFiltersArgs<T>) {
     onChange,
     onCheckedChange,
     onSelectChange,
+    onArrayCheckedChange,
     isFetching,
     isError,
     clearField,

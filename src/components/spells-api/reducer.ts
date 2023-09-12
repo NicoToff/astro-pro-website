@@ -1,13 +1,19 @@
 import { ActionEnum, initialSearchState } from "./constants";
 import { isSearchStateArrayField } from "./types";
 
-import type { SearchState, SearchStateKey } from "./types";
+import type { SearchState, SearchStateKey, SearchStateObjectField } from "./types";
 
 export type Action =
   | {
       type: typeof ActionEnum.UPDATE;
       fieldName: SearchStateKey;
       value: string;
+    }
+  | {
+      type: typeof ActionEnum.UPDATE_OBJECT_FIELD;
+      fieldName: SearchStateObjectField;
+      subFieldName: string;
+      value: boolean;
     }
   | {
       type: typeof ActionEnum.REMOVE;
@@ -33,6 +39,13 @@ export function searchReducer(state: SearchState, action: Action) {
         }
       }
       return { ...state, [action.fieldName]: action.value };
+    case ActionEnum.UPDATE_OBJECT_FIELD: {
+      const currentValue = { ...state[action.fieldName] };
+      return {
+        ...state,
+        [action.fieldName]: { ...currentValue, [action.subFieldName]: action.value },
+      };
+    }
     case ActionEnum.REMOVE: {
       return { ...state, [action.fieldName]: "" };
     }

@@ -16,7 +16,13 @@ import { ControlledCheckbox } from "./controlled-checkbox.tsx";
 import { MOBILE_AGENT_TAGS } from "./constants";
 import { filterIsEmpty } from "./helpers.ts";
 
-import type { SearchStateKey, SearchStateArrayField, SearchStateStringField, SearchState } from "./types.ts";
+import type {
+  SearchStateKey,
+  SearchStateArrayField,
+  SearchStateStringField,
+  SearchState,
+  SearchStateObjectField,
+} from "./types.ts";
 import type { CheckedState } from "@radix-ui/react-checkbox";
 
 export type SearchFiltersProps = {
@@ -25,6 +31,7 @@ export type SearchFiltersProps = {
   onChange: (e: React.ChangeEvent<HTMLInputElement>) => void;
   onCheckedChange: (e: CheckedState, fieldName: SearchStateStringField) => void;
   onSelectChange: (e: React.ChangeEvent<HTMLSelectElement>, fieldName: SearchStateKey) => void;
+  onArrayCheckedChange: (e: CheckedState, fieldName: SearchStateObjectField, subFieldName: string) => void;
   clearField: (fieldName: SearchStateKey) => void;
   clearFilters: () => void;
   isOnMobile?: boolean;
@@ -36,6 +43,7 @@ export function SearchFilters({
   onChange,
   onCheckedChange,
   onSelectChange,
+  onArrayCheckedChange,
   clearField,
   clearFilters,
 }: SearchFiltersProps) {
@@ -73,10 +81,18 @@ export function SearchFilters({
         />
       </div>
       <Accordion type="multiple" className="not-prose w-full">
-        <AccordionItem value="item-1">
+        <AccordionItem value="spell-sources">
           <AccordionTrigger>Spell sources</AccordionTrigger>
           <AccordionContent>
-            <ControlledSelect
+            {SOURCES.map((source) => (
+              <ControlledCheckbox
+                key={source}
+                fieldName={source}
+                value={filter.sources[source]}
+                onCheckedChange={(e) => onArrayCheckedChange(e, "sources", source)}
+              />
+            ))}
+            {/* <ControlledSelect
               className="row-span-4 lg:row-span-2"
               fieldName={"sources" satisfies SearchStateArrayField}
               value={filter.sources}
@@ -85,11 +101,11 @@ export function SearchFilters({
               onResetClick={() => clearField("sources")}
               isOnMobile={isOnMobile}
               multiple
-            />
+            /> */}
           </AccordionContent>
         </AccordionItem>
 
-        <AccordionItem value="item-2">
+        {/* <AccordionItem value="level">
           <AccordionTrigger>Level</AccordionTrigger>
           <AccordionContent>
             <div className="m-2 flex items-center space-x-2">
@@ -108,7 +124,7 @@ export function SearchFilters({
           </AccordionContent>
         </AccordionItem>
 
-        <AccordionItem value="item-3">
+        <AccordionItem value="school">
           <AccordionTrigger>School</AccordionTrigger>
           <AccordionContent>
             <ControlledSelect
@@ -122,7 +138,7 @@ export function SearchFilters({
           </AccordionContent>
         </AccordionItem>
 
-        <AccordionItem value="item-4">
+        <AccordionItem value="concentration-ritual">
           <AccordionTrigger>Concentration / Ritual</AccordionTrigger>
           <AccordionContent>
             <div className="flex">
@@ -141,7 +157,7 @@ export function SearchFilters({
           </AccordionContent>
         </AccordionItem>
 
-        <AccordionItem value="item-5">
+        <AccordionItem value="components">
           <AccordionTrigger>Components</AccordionTrigger>
           <AccordionContent>
             <ControlledSelect
@@ -156,7 +172,7 @@ export function SearchFilters({
           </AccordionContent>
         </AccordionItem>
 
-        <AccordionItem value="item-6">
+        <AccordionItem value="damage-types">
           <AccordionTrigger>Damage types</AccordionTrigger>
           <AccordionContent>
             <ControlledSelect
@@ -169,7 +185,7 @@ export function SearchFilters({
               multiple
             />
           </AccordionContent>
-        </AccordionItem>
+        </AccordionItem> */}
       </Accordion>
     </>
   );

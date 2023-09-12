@@ -1,6 +1,12 @@
 import type { Writeable } from "astro/zod";
 import { initialSearchState } from "./constants";
-import { isSearchStateArrayField, isSearchStateStringField, type SearchState } from "./types";
+import {
+  isSearchStateArrayField,
+  isSearchStateObjectField,
+  isSearchStateObjectSubfieldKey,
+  isSearchStateStringField,
+  type SearchState,
+} from "./types";
 
 export function updateBrowserHistory(params: string) {
   if (typeof window !== "undefined") {
@@ -25,7 +31,9 @@ export function parseQueryString(queryString: string) {
   for (const pair of keyValuePairs) {
     const [key, value] = pair.split("=");
     if (!value) continue;
-    if (isSearchStateArrayField(key)) {
+    else if (isSearchStateObjectField(key) && isSearchStateObjectSubfieldKey(value, key)) {
+      params[key][value] = true;
+    } else if (isSearchStateArrayField(key)) {
       if (params[key].includes(value)) continue;
       params[key].push(value);
     } else if (isSearchStateStringField(key)) {
@@ -35,39 +43,57 @@ export function parseQueryString(queryString: string) {
 
   return params;
 }
+type ValidObjArg = { [key: string]: string | string[] | boolean | ValidObjArg | undefined | null };
+export function deepPurgeEmptyFields<T extends ValidObjArg>(
+  obj: T,
+  valuesToExclude = [null, undefined, false, "", "[]", "{}"]
+): Partial<T> {
+  const result: Partial<T> = {};
+  const valuesToExcludeSet = new Set(valuesToExclude);
 
-export function purgeEmptyFields<T extends { [key: string]: string | string[] }>(obj: T): Partial<T> {
-  return Object.fromEntries(
-    Object.entries(obj).filter(([, v]) => {
-      if (Array.isArray(v)) {
-        return v.length > 0;
+  for (const [key, value] of Object.entries(obj)) {
+    if (valuesToExcludeSet.has(value as any)) continue;
+
+    if (Array.isArray(value)) {
+      const filtered = value.filter(Boolean);
+      if (filtered.length > 0) {
+        (result as ValidObjArg)[key] = filtered;
       }
-      return v !== "";
-    })
-  ) as Partial<T>;
+      continue;
+    }
+
+    if (typeof value === "object") {
+      const nestedPurged = deepPurgeEmptyFields(value as ValidObjArg);
+      if (Object.keys(nestedPurged).length > 0) {
+        (result as ValidObjArg)[key] = nestedPurged;
+      }
+      continue;
+    }
+
+    (result as ValidObjArg)[key] = value;
+  }
+  return result;
 }
 
-export function getURLSearchParams(filter: Partial<SearchState>) {
+export function makeURLSearchParams(filter: Partial<SearchState>) {
   const params = new URLSearchParams();
   for (const [key, value] of Object.entries(filter)) {
     if (Array.isArray(value)) {
       for (const elem of value) {
         params.append(key, elem);
       }
+    } else if (isSearchStateObjectField(key)) {
+      const subField = filter[key];
+      if (subField == null) continue;
+      for (const [subfieldKey, bool] of Object.entries(subField)) {
+        if (bool && isSearchStateObjectSubfieldKey(subfieldKey, key)) {
+          console.log("🚀 ~ file: helpers.ts:89 ~ makeURLSearchParams ~  [subfieldKey, bool]:", [subfieldKey, bool]);
+          params.append(key, subfieldKey);
+        }
+      }
     } else {
-      params.append(key, value);
+      params.append(key, value as string); // TODO: Check if type narrowing can be improved
     }
   }
   return params;
 }
-
-// export function stringifyArrayFields(filter: SearchState) {
-//   return Object.fromEntries(
-//     Object.entries(filter).map(([k, v]) => {
-//       if (Array.isArray(v)) {
-//         return [k, v.join(",")];
-//       }
-//       return [k, v];
-//     })
-//   );
-// }
