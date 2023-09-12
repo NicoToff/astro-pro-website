@@ -37,6 +37,7 @@ export interface components {
       ritual?: boolean;
       flavor?: string;
       description: string[];
+      damageTypes: ("bludgeoning" | "piercing" | "slashing" | "acid" | "cold" | "fire" | "force" | "lightning" | "necrotic" | "poison" | "psychic" | "radiant" | "thunder")[];
       atHigherLevels?: string;
       cantripUpgrade?: string;
       /** @enum {string} */
@@ -66,6 +67,7 @@ export interface components {
       /** @enum {string} */
       group?: "Elemental Torrents";
       sources: ("Primal" | "Arcane" | "Divine" | "Barbarian" | "Bard" | "Cleric" | "Druid" | "Fighter" | "Monk" | "Paladin" | "Ranger" | "Rogue" | "Sorcerer" | "Warlock" | "Wizard" | "Artificer")[];
+      damageTypes?: ("bludgeoning" | "piercing" | "slashing" | "acid" | "cold" | "fire" | "force" | "lightning" | "necrotic" | "poison" | "psychic" | "radiant" | "thunder")[];
     };
   };
   responses: never;
@@ -88,6 +90,8 @@ export interface operations {
   SpellsController_findAll: {
     parameters: {
       query?: {
+        /** @description The damage types of the spell */
+        damageTypes?: ("bludgeoning" | "piercing" | "slashing" | "acid" | "cold" | "fire" | "force" | "lightning" | "necrotic" | "poison" | "psychic" | "radiant" | "thunder")[];
         /** @description Whether the spell can be cast as a ritual */
         ritual?: "true" | "false";
         /** @description Whether the spell requires concentration */

@@ -10,7 +10,8 @@
     "astro": "astro",
     "format": "prettier --write . --plugin=prettier-plugin-astro",
     "open-api:gen:dev": "pnpm dlx openapi-typescript http://0.0.0.0:8000/api-json --output src/types/spells-api.ts",
-    "open-api:gen:prod": "pnpm dlx openapi-typescript https://nestjs-spells-api.fly.dev/api-json --output src/types/spells-api.ts"
+    "open-api:gen:prod": "pnpm dlx openapi-typescript https://nestjs-spells-api.fly.dev/api-json --output src/types/spells-api.ts",
+    "test": "bun test || echo 'Please, install bun: https://bun.sh/docs/installation'"
   },
   "dependencies": {
     "@astrojs/mdx": "^1.0.3",

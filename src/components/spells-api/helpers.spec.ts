@@ -1,4 +1,7 @@
-import { deepPurgeEmptyFields } from "./helpers";
+// @ts-nocheck
+import { initialSearchState } from "./constants";
+import { deepPurgeEmptyFields, filterIsEmpty } from "./helpers";
+import type { Writeable } from "astro/zod";
 
 describe("testing helpers", () => {
   test("deepPurgeEmptyFields should leave non-empty arrayFields alone", () => {
@@ -77,5 +80,20 @@ describe("testing helpers", () => {
       },
     };
     expect(deepPurgeEmptyFields(input)).toEqual(expected);
+  });
+
+  test("filterIsEmpty should see the initialSearchState as empty", () => {
+    const mock = structuredClone(initialSearchState);
+    expect(filterIsEmpty(mock)).toBe(true);
+  });
+  test("filterIsEmpty should see a non-empty filter as not empty", () => {
+    const mock = structuredClone(initialSearchState) as Writeable<typeof initialSearchState>;
+    mock.name = "something";
+    expect(filterIsEmpty(mock)).toBe(false);
+  });
+  test("filterIsEmpty should see a nested value as a non-empty filter", () => {
+    const mock = structuredClone(initialSearchState) as Writeable<typeof initialSearchState>;
+    mock.sources.Cleric = true;
+    expect(filterIsEmpty(mock)).toBe(false);
   });
 });

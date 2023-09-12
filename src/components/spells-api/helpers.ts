@@ -18,6 +18,8 @@ export function filterIsEmpty(filter: Partial<SearchState>) {
   return Object.values(filter).every((v) => {
     if (Array.isArray(v)) {
       return v.length === 0;
+    } else if (typeof v === "object") {
+      return Object.values(v).every((v) => v === false);
     }
     return v === "";
   });
@@ -43,6 +45,7 @@ export function parseQueryString(queryString: string) {
 
   return params;
 }
+
 type ValidObjArg = { [key: string]: string | string[] | boolean | ValidObjArg | undefined | null };
 export function deepPurgeEmptyFields<T extends ValidObjArg>(
   obj: T,
@@ -87,12 +90,11 @@ export function makeURLSearchParams(filter: Partial<SearchState>) {
       if (subField == null) continue;
       for (const [subfieldKey, bool] of Object.entries(subField)) {
         if (bool && isSearchStateObjectSubfieldKey(subfieldKey, key)) {
-          console.log("🚀 ~ file: helpers.ts:89 ~ makeURLSearchParams ~  [subfieldKey, bool]:", [subfieldKey, bool]);
           params.append(key, subfieldKey);
         }
       }
     } else {
-      params.append(key, value as string); // TODO: Check if type narrowing can be improved
+      params.append(key, value as string);
     }
   }
   return params;
