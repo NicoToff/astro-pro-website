@@ -7,6 +7,7 @@ import { SCHOOLS, SOURCES, COMPONENTS, DAMAGE_TYPES } from "dnd-home-utils";
 import { Input } from "@/shadcn/ui/input";
 import { Label } from "@/shadcn/ui/label";
 import { Button } from "@/shadcn/ui/button";
+import { Accordion, AccordionContent, AccordionItem, AccordionTrigger } from "@/shadcn/ui/accordion";
 
 import { SearchInput } from "./search-input.tsx";
 import { ControlledSelect } from "./controlled-select.tsx";
@@ -71,76 +72,105 @@ export function SearchFilters({
           placeholder="Search by name..."
         />
       </div>
-
-      <div className="grid grid-cols-1 place-items-end sm:grid-cols-2 sm:place-items-start lg:grid-cols-3 lg:place-items-center">
-        <ControlledSelect
-          className="row-span-4 lg:row-span-2"
-          fieldName={"sources" satisfies SearchStateArrayField}
-          value={filter.sources}
-          options={SOURCES}
-          onSelectChange={(e) => onSelectChange(e, "sources")}
-          onResetClick={() => clearField("sources")}
-          isOnMobile={isOnMobile}
-          multiple
-        />
-
-        <div className="m-2 flex items-center space-x-2">
-          <Label htmlFor={"level" satisfies SearchStateKey}>{`Level`}</Label>
-          <Input
-            type="number"
-            value={filter.level}
-            name={"level" satisfies SearchStateKey}
-            id={"level" satisfies SearchStateKey}
-            onChange={onChange}
-            min={0}
-            max={9}
-            className="w-[60px]"
-          />
-        </div>
-
-        <ControlledSelect
-          fieldName={"school" satisfies SearchStateKey}
-          value={filter.school}
-          options={SCHOOLS}
-          onSelectChange={(e) => onSelectChange(e, "school" satisfies SearchStateKey)}
-          onResetClick={() => clearField("school" satisfies SearchStateKey)}
-          isOnMobile={isOnMobile}
-        />
-
-        <div className="flex">
-          {[
-            { fieldName: "concentration" as SearchStateStringField },
-            { fieldName: "ritual" as SearchStateStringField },
-          ].map(({ fieldName }) => (
-            <ControlledCheckbox
-              key={fieldName}
-              fieldName={fieldName}
-              value={filter[fieldName]}
-              onCheckedChange={(e) => onCheckedChange(e, fieldName)}
+      <Accordion type="multiple" className="not-prose w-full">
+        <AccordionItem value="item-1">
+          <AccordionTrigger>Spell sources</AccordionTrigger>
+          <AccordionContent>
+            <ControlledSelect
+              className="row-span-4 lg:row-span-2"
+              fieldName={"sources" satisfies SearchStateArrayField}
+              value={filter.sources}
+              options={SOURCES}
+              onSelectChange={(e) => onSelectChange(e, "sources")}
+              onResetClick={() => clearField("sources")}
+              isOnMobile={isOnMobile}
+              multiple
             />
-          ))}
-        </div>
+          </AccordionContent>
+        </AccordionItem>
 
-        <ControlledSelect
-          fieldName={"components" satisfies SearchStateArrayField}
-          value={filter.components}
-          options={COMPONENTS}
-          onSelectChange={(e) => onSelectChange(e, "components")}
-          onResetClick={() => clearField("components")}
-          isOnMobile={isOnMobile}
-          multiple
-        />
+        <AccordionItem value="item-2">
+          <AccordionTrigger>Level</AccordionTrigger>
+          <AccordionContent>
+            <div className="m-2 flex items-center space-x-2">
+              <Label htmlFor={"level" satisfies SearchStateKey}>{`Level`}</Label>
+              <Input
+                type="number"
+                value={filter.level}
+                name={"level" satisfies SearchStateKey}
+                id={"level" satisfies SearchStateKey}
+                onChange={onChange}
+                min={0}
+                max={9}
+                className="w-[60px]"
+              />
+            </div>
+          </AccordionContent>
+        </AccordionItem>
 
-        <ControlledSelect
-          fieldName={"damageTypes" satisfies SearchStateArrayField}
-          value={filter.damageTypes}
-          options={DAMAGE_TYPES}
-          onSelectChange={(e) => onSelectChange(e, "damageTypes")}
-          onResetClick={() => clearField("damageTypes")}
-          isOnMobile={isOnMobile}
-          multiple
-        />
-      </div>
+        <AccordionItem value="item-3">
+          <AccordionTrigger>School</AccordionTrigger>
+          <AccordionContent>
+            <ControlledSelect
+              fieldName={"school" satisfies SearchStateKey}
+              value={filter.school}
+              options={SCHOOLS}
+              onSelectChange={(e) => onSelectChange(e, "school" satisfies SearchStateKey)}
+              onResetClick={() => clearField("school" satisfies SearchStateKey)}
+              isOnMobile={isOnMobile}
+            />
+          </AccordionContent>
+        </AccordionItem>
+
+        <AccordionItem value="item-4">
+          <AccordionTrigger>Concentration / Ritual</AccordionTrigger>
+          <AccordionContent>
+            <div className="flex">
+              {[
+                { fieldName: "concentration" as SearchStateStringField },
+                { fieldName: "ritual" as SearchStateStringField },
+              ].map(({ fieldName }) => (
+                <ControlledCheckbox
+                  key={fieldName}
+                  fieldName={fieldName}
+                  value={filter[fieldName]}
+                  onCheckedChange={(e) => onCheckedChange(e, fieldName)}
+                />
+              ))}
+            </div>
+          </AccordionContent>
+        </AccordionItem>
+
+        <AccordionItem value="item-5">
+          <AccordionTrigger>Components</AccordionTrigger>
+          <AccordionContent>
+            <ControlledSelect
+              fieldName={"components" satisfies SearchStateArrayField}
+              value={filter.components}
+              options={COMPONENTS}
+              onSelectChange={(e) => onSelectChange(e, "components")}
+              onResetClick={() => clearField("components")}
+              isOnMobile={isOnMobile}
+              multiple
+            />
+          </AccordionContent>
+        </AccordionItem>
+
+        <AccordionItem value="item-6">
+          <AccordionTrigger>Damage types</AccordionTrigger>
+          <AccordionContent>
+            <ControlledSelect
+              fieldName={"damageTypes" satisfies SearchStateArrayField}
+              value={filter.damageTypes}
+              options={DAMAGE_TYPES}
+              onSelectChange={(e) => onSelectChange(e, "damageTypes")}
+              onResetClick={() => clearField("damageTypes")}
+              isOnMobile={isOnMobile}
+              multiple
+            />
+          </AccordionContent>
+        </AccordionItem>
+      </Accordion>
     </>
   );
 }
