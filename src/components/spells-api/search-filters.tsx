@@ -2,21 +2,38 @@ import { useState } from "react";
 import { useOnMount } from "../hooks/use-on-mount.ts";
 
 import { FilterX } from "lucide-react";
-import { SCHOOLS, SOURCES, COMPONENTS, DAMAGE_TYPES } from "dnd-home-utils";
+import {
+  SCHOOLS,
+  SOURCES,
+  COMPONENTS,
+  DAMAGE_TYPES,
+  SPELL_LEVELS,
+  type SpellLevel,
+  type ComponentName,
+} from "dnd-home-utils";
 
-import { Input } from "@/shadcn/ui/input";
 import { Label } from "@/shadcn/ui/label";
 import { Button } from "@/shadcn/ui/button";
+import { Accordion, AccordionContent, AccordionItem, AccordionTrigger } from "@/shadcn/ui/accordion";
+
+import { camelCaseToWords } from "@/lib/camel-case-to-words.ts";
+import { cn } from "@/lib/utils.ts";
 
 import { SearchInput } from "./search-input.tsx";
-import { ControlledSelect } from "./controlled-select.tsx";
 import { ControlledCheckbox } from "./controlled-checkbox.tsx";
 
 import { MOBILE_AGENT_TAGS } from "./constants";
 import { filterIsEmpty } from "./helpers.ts";
 
-import type { SearchStateKey, SearchStateArrayField, SearchStateStringField, SearchState } from "./types.ts";
+import type {
+  SearchStateKey,
+  SearchStateStringField,
+  SearchState,
+  SearchStateObjectField,
+  SearchStateObjectFieldKey,
+} from "./types.ts";
 import type { CheckedState } from "@radix-ui/react-checkbox";
+import type { ToString } from "@/types/helpers.ts";
 
 export type SearchFiltersProps = {
   filter: SearchState;
@@ -24,6 +41,7 @@ export type SearchFiltersProps = {
   onChange: (e: React.ChangeEvent<HTMLInputElement>) => void;
   onCheckedChange: (e: CheckedState, fieldName: SearchStateStringField) => void;
   onSelectChange: (e: React.ChangeEvent<HTMLSelectElement>, fieldName: SearchStateKey) => void;
+  onArrayCheckedChange: (e: CheckedState, fieldName: SearchStateObjectField, subFieldName: string) => void;
   clearField: (fieldName: SearchStateKey) => void;
   clearFilters: () => void;
   isOnMobile?: boolean;
@@ -34,11 +52,13 @@ export function SearchFilters({
   isFetching,
   onChange,
   onCheckedChange,
-  onSelectChange,
+  onArrayCheckedChange,
   clearField,
   clearFilters,
 }: SearchFiltersProps) {
   const [isOnMobile, setIsOnMobile] = useState(false);
+  const customItemBundle = { clearField, filter };
+
   useOnMount(() => {
     if (!window.navigator) return;
     const userAgent = window.navigator.userAgent.toLowerCase();
@@ -55,7 +75,7 @@ export function SearchFilters({
           disabled={filterIsEmpty(filter)}
           className="relative mb-2 flex gap-1"
         >
-          <div>{`Reset all filters`}</div>
+          <div>{`Clear all filters`}</div>
           <FilterX size={20} />
         </Button>
       </div>
@@ -71,76 +91,145 @@ export function SearchFilters({
           placeholder="Search by name..."
         />
       </div>
-
-      <div className="grid grid-cols-1 place-items-end sm:grid-cols-2 sm:place-items-start lg:grid-cols-3 lg:place-items-center">
-        <ControlledSelect
-          className="row-span-4 lg:row-span-2"
-          fieldName={"sources" satisfies SearchStateArrayField}
-          value={filter.sources}
-          options={SOURCES}
-          onSelectChange={(e) => onSelectChange(e, "sources")}
-          onResetClick={() => clearField("sources")}
-          isOnMobile={isOnMobile}
-          multiple
-        />
-
-        <div className="m-2 flex items-center space-x-2">
-          <Label htmlFor={"level" satisfies SearchStateKey}>{`Level`}</Label>
-          <Input
-            type="number"
-            value={filter.level}
-            name={"level" satisfies SearchStateKey}
-            id={"level" satisfies SearchStateKey}
-            onChange={onChange}
-            min={0}
-            max={9}
-            className="w-[60px]"
-          />
-        </div>
-
-        <ControlledSelect
-          fieldName={"school" satisfies SearchStateKey}
-          value={filter.school}
-          options={SCHOOLS}
-          onSelectChange={(e) => onSelectChange(e, "school" satisfies SearchStateKey)}
-          onResetClick={() => clearField("school" satisfies SearchStateKey)}
-          isOnMobile={isOnMobile}
-        />
-
-        <div className="flex">
-          {[
-            { fieldName: "concentration" as SearchStateStringField },
-            { fieldName: "ritual" as SearchStateStringField },
-          ].map(({ fieldName }) => (
+      <Accordion type="multiple" className="not-prose w-full">
+        <CustomAccordionItem
+          value="sources"
+          className="grid-cols-2 sm:grid-cols-4 md:grid-cols-6 lg:grid-cols-8"
+          {...customItemBundle}
+        >
+          {SOURCES.map((source) => (
             <ControlledCheckbox
-              key={fieldName}
-              fieldName={fieldName}
-              value={filter[fieldName]}
-              onCheckedChange={(e) => onCheckedChange(e, fieldName)}
+              key={source}
+              fieldName={source}
+              value={filter.sources[source]}
+              onCheckedChange={(e) => onArrayCheckedChange(e, "sources", source)}
             />
           ))}
-        </div>
+        </CustomAccordionItem>
 
-        <ControlledSelect
-          fieldName={"components" satisfies SearchStateArrayField}
-          value={filter.components}
-          options={COMPONENTS}
-          onSelectChange={(e) => onSelectChange(e, "components")}
-          onResetClick={() => clearField("components")}
-          isOnMobile={isOnMobile}
-          multiple
-        />
+        <CustomAccordionItem value="level" className="grid-cols-3 md:grid-cols-5 lg:grid-cols-10" {...customItemBundle}>
+          {SPELL_LEVELS.map((level) => {
+            const levelString = level.toString() as ToString<typeof level>;
+            return (
+              <ControlledCheckbox
+                key={levelString}
+                fieldName={levelSchoolLabel(levelString)}
+                value={filter.level[levelString]}
+                onCheckedChange={(e) => onArrayCheckedChange(e, "level", levelString)}
+              />
+            );
+          })}
+        </CustomAccordionItem>
 
-        <ControlledSelect
-          fieldName={"damageTypes" satisfies SearchStateArrayField}
-          value={filter.damageTypes}
-          options={DAMAGE_TYPES}
-          onSelectChange={(e) => onSelectChange(e, "damageTypes")}
-          onResetClick={() => clearField("damageTypes")}
-          isOnMobile={isOnMobile}
-          multiple
-        />
-      </div>
+        <CustomAccordionItem value="school" className="grid-cols-2 sm:grid-cols-4" {...customItemBundle}>
+          {SCHOOLS.map((school) => (
+            <ControlledCheckbox
+              key={school}
+              fieldName={school}
+              value={filter.school[school]}
+              onCheckedChange={(e) => onArrayCheckedChange(e, "school", school)}
+            />
+          ))}
+        </CustomAccordionItem>
+
+        <CustomAccordionItem value="components" className="grid-cols-3" {...customItemBundle}>
+          {COMPONENTS.map((component) => (
+            <ControlledCheckbox
+              key={component}
+              fieldName={componentLabel(component)}
+              value={filter.components[component]}
+              onCheckedChange={(e) => onArrayCheckedChange(e, "components", component)}
+            />
+          ))}
+        </CustomAccordionItem>
+
+        <CustomAccordionItem
+          value="damageTypes"
+          className="grid-cols-3 sm:grid-cols-4 md:grid-cols-6 lg:grid-cols-8"
+          {...customItemBundle}
+        >
+          {DAMAGE_TYPES.map((damageType) => (
+            <ControlledCheckbox
+              key={damageType}
+              fieldName={damageType}
+              value={filter.damageTypes[damageType]}
+              onCheckedChange={(e) => onArrayCheckedChange(e, "damageTypes", damageType)}
+            />
+          ))}
+        </CustomAccordionItem>
+
+        <AccordionItem value="concentration-ritual">
+          <AccordionTrigger>Other filters</AccordionTrigger>
+          <AccordionContent>
+            <div className="flex justify-end">
+              {[
+                { fieldName: "concentration" as SearchStateStringField },
+                { fieldName: "ritual" as SearchStateStringField },
+              ].map(({ fieldName }) => (
+                <ControlledCheckbox
+                  key={fieldName}
+                  fieldName={fieldName}
+                  value={filter[fieldName]}
+                  onCheckedChange={(e) => onCheckedChange(e, fieldName)}
+                />
+              ))}
+            </div>
+          </AccordionContent>
+        </AccordionItem>
+      </Accordion>
     </>
   );
+}
+
+type CustomAccordionItemProps = {
+  value: SearchStateObjectField;
+  children: React.ReactNode;
+  className?: string;
+  clearField: (fieldName: SearchStateKey) => void;
+  filter: SearchState;
+};
+export function CustomAccordionItem({ value, clearField, filter, children, className }: CustomAccordionItemProps) {
+  const numSelected = Object.values(filter[value]).filter(Boolean).length;
+  const numSelectedText = numSelected ? ` (${numSelected})` : "";
+  return (
+    <AccordionItem value={value}>
+      <AccordionTrigger>{`${camelCaseToWords(value)}${numSelectedText}`}</AccordionTrigger>
+      <AccordionContent>
+        <div className={cn("grid place-items-end overflow-x-auto", className)}>{children}</div>
+        <div className="mr-2 mt-1 flex justify-end">
+          <Button className="place-content-end" variant="secondary" onClick={() => clearField(value)}>
+            {`Clear`}
+          </Button>
+        </div>
+      </AccordionContent>
+    </AccordionItem>
+  );
+}
+
+function levelSchoolLabel(spellLevel: ToString<SpellLevel>) {
+  switch (spellLevel) {
+    case "0":
+      return `Cantrip`;
+    case "1":
+      return `1st`;
+    case "2":
+      return `2nd`;
+    case "3":
+      return `3rd`;
+    default:
+      return `${spellLevel}th`;
+  }
+}
+
+function componentLabel(component: ComponentName) {
+  switch (component.toUpperCase()) {
+    case "V":
+      return "Verbal";
+    case "S":
+      return "Somatic";
+    case "M":
+      return "Material";
+    default:
+      return component;
+  }
 }
