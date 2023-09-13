@@ -10,7 +10,13 @@ import {
   deepPurgeEmptyFields,
   updateBrowserHistory,
 } from "./helpers";
-import type { SearchStateKey, SearchStateObjectField } from "./types";
+import {
+  isSearchStateObjectField,
+  isSearchStateStringField,
+  type SearchStateKey,
+  type SearchStateObjectField,
+  type SearchStateStringField,
+} from "./types";
 import type { CheckedState } from "@radix-ui/react-checkbox";
 
 export type UseFiltersArgs<T> = {
@@ -26,21 +32,21 @@ export function useFilters<T>({ url, setResult }: UseFiltersArgs<T>) {
   function onChange(e: ChangeEvent<HTMLInputElement>) {
     setIsFetching(true);
     const { name, value } = e.target;
-    dispatchFilter({ type: ActionEnum.UPDATE, fieldName: name as SearchStateKey, value });
+    dispatchFilter({ type: ActionEnum.UPDATE_STRING_FIELD, fieldName: name as SearchStateStringField, value });
   }
 
-  function onCheckedChange(e: CheckedState, fieldName: SearchStateKey) {
+  function onCheckedChange(e: CheckedState, fieldName: SearchStateStringField) {
     setIsFetching(true);
     const value = e.valueOf().toString();
     if (value === "true") {
       dispatchFilter({
-        type: ActionEnum.UPDATE,
+        type: ActionEnum.UPDATE_STRING_FIELD,
         fieldName,
         value,
       });
     } else {
       dispatchFilter({
-        type: ActionEnum.REMOVE,
+        type: ActionEnum.CLEAR_STRING_FIELD,
         fieldName,
       });
     }
@@ -51,14 +57,13 @@ export function useFilters<T>({ url, setResult }: UseFiltersArgs<T>) {
     dispatchFilter({ type: ActionEnum.UPDATE_OBJECT_FIELD, fieldName, subFieldName, value: Boolean(e) });
   }
 
-  function onSelectChange(e: ChangeEvent<HTMLSelectElement>, fieldName: SearchStateKey) {
-    setIsFetching(true);
-    dispatchFilter({ type: ActionEnum.UPDATE, fieldName, value: e.target.value });
-  }
-
   function clearField(fieldName: SearchStateKey) {
     setIsFetching(true);
-    dispatchFilter({ type: ActionEnum.REMOVE, fieldName });
+    if (isSearchStateStringField(fieldName)) {
+      dispatchFilter({ type: ActionEnum.CLEAR_STRING_FIELD, fieldName });
+    } else if (isSearchStateObjectField(fieldName)) {
+      dispatchFilter({ type: ActionEnum.CLEAR_OBJECT_FIELD, fieldName });
+    }
   }
 
   useOnMount(() => {
@@ -106,7 +111,6 @@ export function useFilters<T>({ url, setResult }: UseFiltersArgs<T>) {
     filter,
     onChange,
     onCheckedChange,
-    onSelectChange,
     onArrayCheckedChange,
     isFetching,
     isError,

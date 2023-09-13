@@ -15,3 +15,5 @@ type ObjectFieldsWithArrays<T> = {
 }[keyof T];
 
 export type ObjectFields<T> = Exclude<ObjectFieldsWithArrays<T>, ArrayFields<T>>;
+
+export type ToString<N> = N extends number ? `${N}` : N;

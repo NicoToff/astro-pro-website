@@ -3,6 +3,7 @@ import { cn } from "@/lib/utils";
 import { Skeleton } from "@/shadcn/ui/skeleton";
 
 import type { Spell } from "@/types/spell";
+import { capitalizeFirstLetter } from "@/lib/capitalize-first-letter";
 
 export type SpellCardProps = { spell: Spell; className?: string };
 export function SpellCard({ spell, className }: SpellCardProps) {
@@ -31,9 +32,9 @@ export function SpellCard({ spell, className }: SpellCardProps) {
         {spell.atHigherLevels ? <Upgrade label="At Higher Levels" value={spell.atHigherLevels} /> : null}
         {spell.cantripUpgrade ? <Upgrade label="Cantrip Upgrade" value={spell.cantripUpgrade} /> : null}
       </CardContent>
-      <CardFooter className="mt-auto text-sm text-muted-foreground">{`Sources: ${spell.sources.join(
-        ", "
-      )}`}</CardFooter>
+      <CardFooter className="mt-auto text-sm text-muted-foreground">{`Sources: ${spell.sources
+        .map(capitalizeFirstLetter)
+        .join(", ")}`}</CardFooter>
     </Card>
   );
 }
@@ -42,7 +43,7 @@ function levelSchool(spell: Spell) {
   const school = spell.school.toLowerCase();
   switch (spell.level) {
     case 0:
-      return `${spell.school} cantrip`;
+      return `${capitalizeFirstLetter(spell.school)} cantrip`;
     case 1:
       return `1st-level ${school}`;
     case 2:
@@ -77,7 +78,7 @@ function formatName(spell: Spell) {
 }
 
 function formatComponents(spell: Spell) {
-  return `${spell.components.join(", ")}${spell.material ? ` (${spell.material})` : ""}`;
+  return `${spell.components.join(", ").toUpperCase()}${spell.material ? ` (${spell.material})` : ""}`;
 }
 
 function formatDuration(spell: Spell) {

@@ -42,8 +42,8 @@ dependencies:
     specifier: ^2.0.0
     version: 2.0.0
   dnd-home-utils:
-    specifier: ^0.0.3
-    version: 0.0.3
+    specifier: ^0.1.0
+    version: 0.1.0
   lucide-react:
     specifier: ^0.274.0
     version: 0.274.0(react@18.2.0)
@@ -2703,8 +2703,8 @@ packages:
   /dlv@1.1.3:
     resolution: {integrity: sha512-+HlytyjlPKnIG8XuRG8WvmBP8xs8P71y+SKKS6ZXWoEgLuePxtDoUEiH7WkdePWrQ5JBpE6aoVqfZfJUQkjXwA==}
 
-  /dnd-home-utils@0.0.3:
-    resolution: {integrity: sha512-Rwq4bPBjQCW3fkIcTFlSbiNeKxkQx8WkjpYVLltFeyREZwqp6Cr3tgCg2kRXEnjT6+TZUJUoYPEJoifEvQkQjA==}
+  /dnd-home-utils@0.1.0:
+    resolution: {integrity: sha512-Ukr5iqAaqEwE/HEAuw/P3uNjYrV6obj5i3y3S9ajH7glduUJkthvYdeSHNTK5Z21Oa5kfZQO7l5ZBrEY4rA7qQ==}
     dev: false
 
   /doctrine@3.0.0:
