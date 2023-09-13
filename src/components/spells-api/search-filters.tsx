@@ -1,6 +1,3 @@
-import { useState } from "react";
-import { useOnMount } from "../hooks/use-on-mount.ts";
-
 import { FilterX } from "lucide-react";
 import {
   SCHOOLS,
@@ -22,16 +19,9 @@ import { cn } from "@/lib/utils.ts";
 import { SearchInput } from "./search-input.tsx";
 import { ControlledCheckbox } from "./controlled-checkbox.tsx";
 
-import { MOBILE_AGENT_TAGS } from "./constants";
 import { filterIsEmpty } from "./helpers.ts";
 
-import type {
-  SearchStateKey,
-  SearchStateStringField,
-  SearchState,
-  SearchStateObjectField,
-  SearchStateObjectFieldKey,
-} from "./types.ts";
+import type { SearchStateKey, SearchStateStringField, SearchState, SearchStateObjectField } from "./types.ts";
 import type { CheckedState } from "@radix-ui/react-checkbox";
 import type { ToString } from "@/types/helpers.ts";
 
@@ -40,11 +30,9 @@ export type SearchFiltersProps = {
   isFetching: boolean;
   onChange: (e: React.ChangeEvent<HTMLInputElement>) => void;
   onCheckedChange: (e: CheckedState, fieldName: SearchStateStringField) => void;
-  onSelectChange: (e: React.ChangeEvent<HTMLSelectElement>, fieldName: SearchStateKey) => void;
   onArrayCheckedChange: (e: CheckedState, fieldName: SearchStateObjectField, subFieldName: string) => void;
   clearField: (fieldName: SearchStateKey) => void;
   clearFilters: () => void;
-  isOnMobile?: boolean;
 };
 
 export function SearchFilters({
@@ -56,15 +44,7 @@ export function SearchFilters({
   clearField,
   clearFilters,
 }: SearchFiltersProps) {
-  const [isOnMobile, setIsOnMobile] = useState(false);
   const customItemBundle = { clearField, filter };
-
-  useOnMount(() => {
-    if (!window.navigator) return;
-    const userAgent = window.navigator.userAgent.toLowerCase();
-    const isMobile = MOBILE_AGENT_TAGS.some((tag) => userAgent.includes(tag));
-    if (isMobile) setIsOnMobile(true);
-  });
 
   return (
     <>

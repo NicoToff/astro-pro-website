@@ -11,8 +11,8 @@ export function Search({ url }: SearchProps) {
   const [spells, setSpells] = useState<Spell[]>([]);
 
   const filters = useFilters({
-    // url,
-    url: "http://localhost:8000/spells",
+    url,
+    // url: "http://localhost:8000/spells",
     setResult: setSpells,
   });
 
