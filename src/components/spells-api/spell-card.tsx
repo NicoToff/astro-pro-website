@@ -83,7 +83,8 @@ function formatComponents(spell: Spell) {
 
 function formatDuration(spell: Spell) {
   const duration = spell.duration;
-  return spell.concentration ? `Concentration, up to ${duration.toLowerCase()}` : duration;
+  const upTo = /\d$/.test(duration.charAt(0)) ? "up to " : "";
+  return spell.concentration ? `Concentration, ${upTo}${duration.toLowerCase()}` : capitalizeFirstLetter(duration);
 }
 
 export function SpellCardSkeleton() {
