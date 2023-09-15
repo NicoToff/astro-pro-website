@@ -2,6 +2,7 @@ import { useEffect, useState, useReducer, useRef, type ChangeEvent, type Dispatc
 
 import { searchReducer } from "./reducer";
 import { ActionEnum, initialSearchState } from "./constants";
+
 import { useOnMount } from "../hooks/use-on-mount";
 import {
   filterIsEmpty,
@@ -10,13 +11,9 @@ import {
   deepPurgeEmptyFields,
   updateBrowserHistory,
 } from "./helpers";
-import {
-  isSearchStateObjectField,
-  isSearchStateStringField,
-  type SearchStateKey,
-  type SearchStateObjectField,
-  type SearchStateStringField,
-} from "./types";
+import { isSearchStateObjectField, isSearchStateStringField } from "./types";
+
+import type { SearchStateKey, SearchStateObjectFieldKey, SearchStateStringFieldKey } from "./types";
 import type { CheckedState } from "@radix-ui/react-checkbox";
 
 export type UseFiltersArgs<T> = {
@@ -32,10 +29,10 @@ export function useFilters<T>({ url, setResult }: UseFiltersArgs<T>) {
   function onChange(e: ChangeEvent<HTMLInputElement>) {
     setIsFetching(true);
     const { name, value } = e.target;
-    dispatchFilter({ type: ActionEnum.UPDATE_STRING_FIELD, fieldName: name as SearchStateStringField, value });
+    dispatchFilter({ type: ActionEnum.UPDATE_STRING_FIELD, fieldName: name as SearchStateStringFieldKey, value });
   }
 
-  function onCheckedChange(e: CheckedState, fieldName: SearchStateStringField) {
+  function onCheckedChange(e: CheckedState, fieldName: SearchStateStringFieldKey) {
     setIsFetching(true);
     const value = e.valueOf().toString();
     if (value === "true") {
@@ -52,7 +49,7 @@ export function useFilters<T>({ url, setResult }: UseFiltersArgs<T>) {
     }
   }
 
-  function onArrayCheckedChange(e: CheckedState, fieldName: SearchStateObjectField, subFieldName: string) {
+  function onArrayCheckedChange(e: CheckedState, fieldName: SearchStateObjectFieldKey, subFieldName: string) {
     setIsFetching(true);
     dispatchFilter({ type: ActionEnum.UPDATE_OBJECT_FIELD, fieldName, subFieldName, value: Boolean(e) });
   }

@@ -1,19 +1,15 @@
-export type Writeable<T> = {
-  -readonly [P in keyof T]: T[P];
-};
-
-export type StringFields<T> = {
+export type StringFieldsKeysInObject<T> = {
   [K in keyof T]: T[K] extends string ? K : never;
 }[keyof T];
 
-export type ArrayFields<T> = {
+export type ArrayFieldsInObject<T> = {
   [K in keyof T]: T[K] extends readonly any[] ? K : never;
 }[keyof T];
 
-type ObjectFieldsWithArrays<T> = {
+type ObjectFieldsInObjectIncludingArrays<T> = {
   [K in keyof T]: T[K] extends { [key: string]: any } ? K : never;
 }[keyof T];
 
-export type ObjectFields<T> = Exclude<ObjectFieldsWithArrays<T>, ArrayFields<T>>;
+export type ObjectFieldsKeysInObject<T> = Exclude<ObjectFieldsInObjectIncludingArrays<T>, ArrayFieldsInObject<T>>;
 
-export type ToString<N> = N extends number ? `${N}` : N;
+export type ToString<N> = N extends number ? `${N}` : never;

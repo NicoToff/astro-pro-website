@@ -1,12 +1,7 @@
-import type { Writeable } from "astro/zod";
 import { initialSearchState } from "./constants";
-import {
-  isSearchStateArrayField,
-  isSearchStateObjectField,
-  isSearchStateObjectSubfieldKey,
-  isSearchStateStringField,
-  type SearchState,
-} from "./types";
+import { isSearchStateObjectField, isSearchStateObjectSubfieldKey, isSearchStateStringField } from "./types";
+import type { Writeable } from "astro/zod";
+import type { SearchState } from "./types";
 
 export function updateBrowserHistory(params: string) {
   if (typeof window !== "undefined") {
@@ -34,10 +29,8 @@ export function parseQueryString(queryString: string) {
     const [key, value] = pair.split("=");
     if (!value) continue;
     else if (isSearchStateObjectField(key) && isSearchStateObjectSubfieldKey(value, key)) {
+      // @ts-ignore
       params[key][value] = true;
-    } else if (isSearchStateArrayField(key)) {
-      if (params[key].includes(value)) continue;
-      params[key].push(value);
     } else if (isSearchStateStringField(key)) {
       params[key] = value.replace("+", " ");
     }

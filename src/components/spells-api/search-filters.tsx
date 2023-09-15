@@ -21,7 +21,7 @@ import { ControlledCheckbox } from "./controlled-checkbox.tsx";
 
 import { filterIsEmpty } from "./helpers.ts";
 
-import type { SearchStateKey, SearchStateStringField, SearchState, SearchStateObjectField } from "./types.ts";
+import type { SearchStateKey, SearchStateStringFieldKey, SearchState, SearchStateObjectFieldKey } from "./types.ts";
 import type { CheckedState } from "@radix-ui/react-checkbox";
 import type { ToString } from "@/types/helpers.ts";
 
@@ -29,8 +29,8 @@ export type SearchFiltersProps = {
   filter: SearchState;
   isFetching: boolean;
   onChange: (e: React.ChangeEvent<HTMLInputElement>) => void;
-  onCheckedChange: (e: CheckedState, fieldName: SearchStateStringField) => void;
-  onArrayCheckedChange: (e: CheckedState, fieldName: SearchStateObjectField, subFieldName: string) => void;
+  onCheckedChange: (e: CheckedState, fieldName: SearchStateStringFieldKey) => void;
+  onArrayCheckedChange: (e: CheckedState, fieldName: SearchStateObjectFieldKey, subFieldName: string) => void;
   clearField: (fieldName: SearchStateKey) => void;
   clearFilters: () => void;
 };
@@ -143,8 +143,8 @@ export function SearchFilters({
           <AccordionContent>
             <div className="flex justify-end">
               {[
-                { fieldName: "concentration" as SearchStateStringField },
-                { fieldName: "ritual" as SearchStateStringField },
+                { fieldName: "concentration" as SearchStateStringFieldKey },
+                { fieldName: "ritual" as SearchStateStringFieldKey },
               ].map(({ fieldName }) => (
                 <ControlledCheckbox
                   key={fieldName}
@@ -162,7 +162,7 @@ export function SearchFilters({
 }
 
 type CustomAccordionItemProps = {
-  value: SearchStateObjectField;
+  value: SearchStateObjectFieldKey;
   children: React.ReactNode;
   className?: string;
   clearField: (fieldName: SearchStateKey) => void;

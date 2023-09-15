@@ -1,26 +1,26 @@
 import { ActionEnum, initialSearchState } from "./constants";
 
-import type { SearchState, SearchStateObjectField, SearchStateStringField } from "./types";
+import type { SearchState, SearchStateObjectFieldKey, SearchStateStringFieldKey } from "./types";
 
 export type Action =
   | {
       type: typeof ActionEnum.UPDATE_STRING_FIELD;
-      fieldName: SearchStateStringField;
+      fieldName: SearchStateStringFieldKey;
       value: string;
     }
   | {
       type: typeof ActionEnum.UPDATE_OBJECT_FIELD;
-      fieldName: SearchStateObjectField;
+      fieldName: SearchStateObjectFieldKey;
       subFieldName: string;
       value: boolean;
     }
   | {
       type: typeof ActionEnum.CLEAR_STRING_FIELD;
-      fieldName: SearchStateStringField;
+      fieldName: SearchStateStringFieldKey;
     }
   | {
       type: typeof ActionEnum.CLEAR_OBJECT_FIELD;
-      fieldName: SearchStateObjectField;
+      fieldName: SearchStateObjectFieldKey;
     }
   | {
       type: typeof ActionEnum.INIT;
