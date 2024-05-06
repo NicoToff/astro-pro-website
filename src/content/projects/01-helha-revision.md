@@ -4,7 +4,7 @@ href: helha-revision
 shortDescription: A website for my student summaries
 description: My very first project! A fully static website to share my summaries with the other students.
 technologies: [HTML, CSS, NotePad++, FileZilla]
-projectUrl: https://helharevision.000webhostapp.com/
+projectUrl: https://helha-revision.vercel.app
 ---
 
 # HELHa Révision
@@ -20,4 +20,4 @@ This website is ugly, ill-designed, but I am proud of what I achieved with this 
 ## Accomplishments
 
 - Create CSS classes tailored to my needs
-- Integrate my summaries as HTML content
+- Integrate my summaries as raw HTML content
