@@ -2,7 +2,7 @@
 title: Dragons Home
 href: dragons-home
 shortDescription: A fork of D&D 5e
-description: A true SRD 5.1 for
+description: A game system based on the SRD 5.1
 technologies: [Astro, TypeScript, MDX]
 projectUrl: https://dragons-home.vercel.app/
 ---
