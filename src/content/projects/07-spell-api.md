@@ -7,7 +7,6 @@ technologies: [TypeScript, NestJS, MongoDB, mongoose, TypeORM, SQLite, Swagger, 
 projectUrl: https://nestjs-spells-api.fly.dev/api
 repo: https://github.com/NicoToff/nestjs-spells-api
 ---
-import { Search } from "@/components/spells-api/search";
 
 # D&D Spell REST API
 
@@ -21,10 +20,6 @@ I also used Swagger to document the API and make it OpenAPI compliant.
 
 The API is deployed on Fly.io using Docker.
 
-### Try it yourself!
-
-You can view the Swagger documentation, but I also built a UI to consume this API: [dedicated search page](/projects/dnd-spell-api/search). Please admire the best-in-class UX experience I created for this page.
-
 ## Accomplishments
 
 - Start a NestJS project from scratch
@@ -34,6 +29,5 @@ You can view the Swagger documentation, but I also built a UI to consume this AP
 - Learn how to be OpenAPI compliant
 - Move data from SQLite to MongoDB Atlas
 - Create React components to consume the API
-
 
 ### API Documentation

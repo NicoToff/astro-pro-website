@@ -4,8 +4,8 @@ import ToggleModeButton from "@/components/toggle-mode-button.astro";
 import { Nav } from "@/components/nav";
 import { Footer } from "@/components/footer";
 import { getParsedCollection } from "@/lib/helpers";
-import type { ProjectInfo } from "@/types/dropdown";
 import { cn } from "@/lib/utils";
+import type { ProjectInfo } from "@/types/dropdown";
 
 const collectionToGet = "projects";
 
@@ -67,7 +67,9 @@ type Props = {
     <Nav client:load dropdownItems={dropdownItems}>
       <ToggleModeButton />
     </Nav>
-    <main class="prose mx-auto mt-4 max-w-screen-lg p-4 dark:prose-invert prose-img:mx-auto">
+    <main
+      class="prose mx-auto mt-4 max-w-screen-lg p-4 dark:prose-invert prose-a:underline-offset-2 hover:prose-a:no-underline prose-img:mx-auto"
+    >
       <slot />
     </main>
 

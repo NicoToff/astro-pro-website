@@ -21,8 +21,15 @@
         <text x="12.25799560546875" y="0"
             font-family="Roboto, Trebuchet MS, system-ui"
             font-size="36px"
-            fill="#2f9e44" text-anchor="middle" style="white-space: pre;" direction="ltr"
-            dominant-baseline="text-before-edge">3</text>
+            fill="#4dabf7" text-anchor="middle" style="white-space: pre;" direction="ltr"
+            dominant-baseline="text-before-edge">4</text>
+    </g>
+    <g transform="translate(333.6201008054866 221.0311815216687) rotate(0 11.519996643066406 22.5)">
+        <text x="11.519996643066406" y="0"
+            font-family="Roboto, Trebuchet MS, system-ui"
+            font-size="36px"
+            fill="#4dabf7" text-anchor="middle" style="white-space: pre;" direction="ltr"
+            dominant-baseline="text-before-edge">4</text>
     </g>
     <g transform="translate(410.5853635217354 221.2791221813959) rotate(0 11.123992919921875 22.5)">
         <text x="11.123992919921875" y="0"
@@ -35,15 +42,15 @@
         <text x="11.519996643066406" y="0"
             font-family="Roboto, Trebuchet MS, system-ui"
             font-size="36px"
-            fill="#4dabf7" text-anchor="middle" style="white-space: pre;" direction="ltr"
-            dominant-baseline="text-before-edge">4</text>
+            fill="#2f9e44" text-anchor="middle" style="white-space: pre;" direction="ltr"
+            dominant-baseline="text-before-edge">3</text>
     </g>
     <g transform="translate(563.2890731701591 221.2790290276116) rotate(0 12.815994262695312 22.5)">
         <text x="12.815994262695312" y="0"
             font-family="Roboto, Trebuchet MS, system-ui"
             font-size="36px"
-            fill="#e8590c" text-anchor="middle" style="white-space: pre;" direction="ltr"
-            dominant-baseline="text-before-edge">2</text>
+            fill="#e03131" text-anchor="middle" style="white-space: pre;" direction="ltr"
+            dominant-baseline="text-before-edge">1</text>
     </g>
     <g transform="translate(645.748526312891 221.2791221813959) rotate(0 12.383995056152344 22.5)">
         <text x="12.383995056152344" y="0"
@@ -281,13 +288,6 @@
             font-size="28px"
             fill="#000000"
             text-anchor="start" style="white-space: pre;" direction="ltr"
-            dominant-baseline="text-before-edge">Data fetching</text>
-    </g>
-    <g transform="translate(333.6201008054866 221.0311815216687) rotate(0 11.519996643066406 22.5)">
-        <text x="11.519996643066406" y="0"
-            font-family="Roboto, Trebuchet MS, system-ui"
-            font-size="36px"
-            fill="#4dabf7" text-anchor="middle" style="white-space: pre;" direction="ltr"
-            dominant-baseline="text-before-edge">4</text>
+            dominant-baseline="text-before-edge">APIs</text>
     </g>
 </svg>
