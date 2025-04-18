@@ -4,4 +4,10 @@ imageOnLight: "/images/logos/nextjs-logo-light.svg"
 imageOnDark: "/images/logos/nextjs-logo-dark.svg"
 ---
 
-Next.js! The missing piece to make for a great DX. I love how it takes care of all the boring stuff to let you focus on what matters: building a great web experience. I'm also a big fan of the [Vercel](https://vercel.com/docs/concepts/deployments/overview) platform, which makes it trivial to deploy and manage web applications.
+I've grown to like Next.js. It's far from being a perfect solution, but the rough edges are getting smoother every year. Thanks to [Vercel](https://vercel.com/docs/concepts/deployments/overview)'s infrastructure, it is trivial to deploy a robust, scalable Next.js application. However, there is a dark side to this.
+
+Since Vercel is maintaining Next.js, they are able to solve problems at the infrastructure level when that makes sense to them. This means self hosting a Next.js application is far from easy or cheap. When teams choose Next.js as their framework, they often overlook this issue and spend precious resources trying to take advantage of Next.
+
+Vercel is slowly making efforts to make self hosting easier, but this task is mostly delegated to open source projects such as OpenNext or [SST](https://sst.dev/docs/start/aws/nextjs/).
+
+In my opinion, if you can afford the potential vendor lock-in by hosting on Vercel, Next.js is a compelling framework. If you can't, you're better off choosing another solution.
