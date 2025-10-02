@@ -4,7 +4,7 @@ href: mtg-fast
 shortDescription: A Magic the Gathering search engine
 description: A search-as-you-type search engine for Magic the Gathering cards, built with Next.js and Typesense.
 technologies: [TypeScript, Next.js, React, Typesense, InstantSearch.js, Python, SQLite, VSCode]
-projectUrl: https://mtg-fast.com/
+projectUrl: https://mtg-card-fetcher-n6gnm4dbb-nicotoff.vercel.app/
 ---
 
 # _Magic: the Gathering_, blazingly fast
