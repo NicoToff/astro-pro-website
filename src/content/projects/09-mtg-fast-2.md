@@ -26,8 +26,6 @@ I'm glad you asked! It turns out that when you filter out all the clutter to kee
 
 ## Accomplishments
 
-- Adapt an existing e-commerce template to my specific needs
-- Integrate Typesense as a search engine
-- Design an optimized document schema to serve the card objects
-- Acquire and update card pricing (available publicly) from reputable websites
-- Deploy and maintain the project
+- Leverage SQLite on the browser thanks to `sqlocal`
+- Using `drizzle-orm` as a query builder to create type-safe queries
+- Optimise queries, frontend code and build output to ensure extreme execution speed
